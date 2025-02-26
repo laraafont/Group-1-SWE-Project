@@ -1,10 +1,10 @@
 /* Styling the Navigation Bar */
 .navbar {
     width: 100%; /* Makes the navbar take up the full width */
-    max-width: 100vw; /* Ensures it doesn't overflow */
+    max-width: 500vw; /* Ensures it doesn't overflow */
     display: flex;
     justify-content: space-between;
-    align-items: left;
+    align-items: center;
     background-color: #c05898;
     padding: 1rem 2rem;
     color: rgb(255, 255, 255);
