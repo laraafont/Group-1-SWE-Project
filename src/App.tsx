@@ -4,7 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // useState hook to manage a simple counter value
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -32,4 +33,4 @@ function App() {
   )
 }
 
-export default App
+export default App; // Export the App component so it can be used in main.tsx
