@@ -5,7 +5,8 @@ import './App.css'
 import Navbar from './NavBar'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // useState hook to manage a simple counter value
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -34,4 +35,4 @@ function App() {
   )
 }
 
-export default App
+export default App; // Export the App component so it can be used in main.tsx
