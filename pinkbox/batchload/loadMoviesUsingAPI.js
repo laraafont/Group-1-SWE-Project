@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 // Replace with your backend API URL
-const backendAPI = 'http://localhost:4000/OMDBaddmovie';
+const backendAPI = 'http://localhost:4000/addmovie';
 
 const costs = [0.99, 1.99, 2.99, 3.99];
 const streamingUrls = [
