@@ -1,0 +1,38 @@
+/* Styling the Navigation Bar */
+.navbar {
+    width: 100%; /* Makes the navbar take up the full width */
+    max-width: 500vw; /* Ensures it doesn't overflow */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c05898;
+    padding: 1rem 2rem;
+    color: rgb(255, 255, 255);
+  }
+  
+  .navbar h1 {
+    margin: 0;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar ul li {
+    display: inline;
+  }
+  
+  .navbar ul li a {
+    color: rgb(10, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .navbar ul li a:hover {
+    text-decoration: underline;
+  }
+  
