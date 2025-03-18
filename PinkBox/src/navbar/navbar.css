@@ -1,0 +1,50 @@
+/* Basic reset for padding and margins */
+* {
+    margin: 20;
+    padding: 100;
+    box-sizing: border-box;
+  }
+  
+  /* Style for the navigation bar */
+  nav {
+    background-color: #fefaf7; /* Dark background for the navbar */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Space out the nav links */
+    align-items: center;
+    border-radius: 20px;
+  }
+  
+  /* Wrapper for the left-aligned links */
+nav .left-links {
+  display: flex;
+  gap: 30px;
+}
+
+/* Wrapper for the right-aligned links */
+nav .right-links {
+  display: flex;
+  gap: 25px;
+}
+
+  /* Style for the navigation links */
+  nav a {
+    color: #fac; /* White text color for links */
+    text-decoration: none; /* Remove underline from links */
+    font-size: 1.2rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  /* Hover effect for the links */
+  nav a:hover {
+    background-color: #E5F4D1; /* Lighten the background on hover */
+    color: #ED9FD7;
+  }
+  
+  /* Active link style */
+  nav a.active {
+    background-color: #007bff; /* Highlight the active page with a blue color */
+    color: white;
+  }

@@ -11,13 +11,19 @@ export default function NavBar() {
     return (
         <div>
             {/* Navigation Links */}
-            <nav style={{ display: 'flex', gap: '20px', padding: '10px' }}>
+            <nav>
                 {/* Adds actual links to navbar */}
-                <Link to="/">Home</Link> {/* Default Page */}
-                <Link to="/movies">Movies</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/cart">Cart</Link>
-                <Link to="/wishlist">Wishlist</Link>
+                <div className="left-links">
+                    {/* Left-aligned links */}
+                    <Link to="/">Home</Link> {/* Default Page */}
+                    <Link to="/movies">Movies</Link>
+                    <Link to="/wishlist">Wishlist</Link>
+                </div>
+
+                <div className="right-links">                    
+                    <Link to="/login">Login</Link>
+                    <Link to="/cart">Cart</Link>
+                </div>
             </nav>
 
             {/* Route Definitions */}
@@ -25,9 +31,9 @@ export default function NavBar() {
                 {/* Links to our .jsx files within navbar */}
                 <Route path="/" element={<Home />} /> {/* Default Page */}
                 <Route path="/movies" element={<Movies />} />
+                <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path="/wishlist" element={<Wishlist />} />
             </Routes>
         </div>
     );
