@@ -30,3 +30,23 @@ src/
   ├─ App.css                 // Styles specific to your App component
   ├─ index.css               // Global CSS styles
   └─ main.tsx                // Entry point of your application; wrap App in the AuthProvider
+
+
+Within the PinkBox directory, we have several folders
+PinkBox/
+  ├─ node_modules/           // Whenever you install any package, the corresponding foder will be created here
+  |
+  ├─ public/    
+  |
+  ├─ src/                    // Main code resides for the frontend
+  |
+  └─ .gitignore
+  |
+  └─ eslint.config.js
+  |
+  └─ index.html
+  |
+  // Set of scripts to run commands
+  └─ package-lock.json
+  |
+  └─ package.json

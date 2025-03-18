@@ -1,13 +1,37 @@
+<!-- Declares the document type-->
 <!doctype html>
+<!-- Root HTML element language attribute set to English -->
 <html lang="en">
+
+  <!-- For metadata -->
   <head>
+    <!-- Character encoding as UTF-8 (supports most languages and special characters) -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Sets the website's favicon, variety compatibility  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Controls the page's responsiveness on different devices -->
+    <!-- width=device-width makes the width match the device screen size -->
+    <!-- initial-scale=1.0 sets the zoom level to 1 (no zoom by default) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    
+    <!-- The title of the webpage (appears in the browser tab) -->
+    <title>PinkBox</title>
+
   </head>
+
+  <!-- For visbile components -->
   <body>
+    <!-- This is a root container where React will render the app -->
+    <!-- React mounts its entire component tree inside this div -->
     <div id="root"></div>
+
+    <!-- Loads the main JavaScript file that initializes your React app -->
+    <!-- type="module" allows using modern JavaScript with ES6 modules -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
