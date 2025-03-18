@@ -8,7 +8,7 @@
   /* Style for the navigation bar */
   nav {
     background-color: #f4f6e0; 
-    padding: 10px 20px;
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between; /* Space out the nav links */
     align-items: center;
@@ -18,20 +18,20 @@
   /* Wrapper for the left-aligned links */
 nav .left-links {
   display: flex;
-  gap: 45px;
+  gap: 55px;
 }
 
 /* Wrapper for the right-aligned links */
 nav .right-links {
   display: flex;
-  gap: 45px;
+  gap: 55px;
 }
 
   /* Style for the navigation links */
   nav a {
     color: #fac; /* White text color for links */
     text-decoration: none; /* Remove underline from links */
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     padding: 8px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
