@@ -1,30 +1,30 @@
 /* Basic reset for padding and margins */
 * {
-    margin: 20;
-    padding: 100;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
   
   /* Style for the navigation bar */
   nav {
-    background-color: #fefaf7; /* Dark background for the navbar */
+    background-color: #f4f6e0; 
     padding: 10px 20px;
     display: flex;
     justify-content: space-between; /* Space out the nav links */
     align-items: center;
-    border-radius: 20px;
+    border-radius: 30px;
   }
   
   /* Wrapper for the left-aligned links */
 nav .left-links {
   display: flex;
-  gap: 30px;
+  gap: 45px;
 }
 
 /* Wrapper for the right-aligned links */
 nav .right-links {
   display: flex;
-  gap: 25px;
+  gap: 45px;
 }
 
   /* Style for the navigation links */
@@ -45,6 +45,6 @@ nav .right-links {
   
   /* Active link style */
   nav a.active {
-    background-color: #007bff; /* Highlight the active page with a blue color */
-    color: white;
+    background-color: #E5F4D1; /* Highlight the active page with a blue color */
+    color: #ED9FD7;
   }
