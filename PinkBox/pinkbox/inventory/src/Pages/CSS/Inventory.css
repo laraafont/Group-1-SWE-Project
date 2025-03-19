@@ -1,0 +1,8 @@
+.inventory{
+    display: flex;
+}
+@media(max-width:800px){
+    .inventory{
+        flex-direction: column;
+    }
+}
