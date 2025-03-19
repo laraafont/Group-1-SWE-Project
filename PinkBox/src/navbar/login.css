@@ -1,0 +1,93 @@
+/* Reset margins and padding for the entire page */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding doesn't affect the element's width */
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Prevents scrollbars if not needed */
+}
+
+.login {
+  height: 100vh; /* Full height of the viewport */
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+  background-image: url('/purple.jpg');
+  background-size: cover; /* Ensure the image covers the entire viewport */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Avoid image tiling */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+}
+
+.login-container {
+  max-width: 650px; /* Increased width for a bigger form */
+  width: 100%;
+  padding: 50px; /* Increased padding for more space inside */
+  background-color: #fefaf7;
+  border-radius: 12px; /* Slightly larger rounded corners */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Larger shadow for better prominence */
+  text-align: left; /* Align text to the left */
+
+  /* Center the login container vertically and horizontally */
+  margin: auto; 
+  margin-top: 50px; /* Adjust this if you need more space between navbar and form */
+}
+
+/* Styling for the title */
+h3 {
+  color: #333;
+  text-align: center; /* Keep the title centered */
+  font-size: 2rem; /* Larger title */
+}
+
+/* Styling for the form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Increase gap for better spacing */
+}
+
+/* Ensure labels and inputs align to the left */
+label {
+  font-weight: normal; /* Ensure labels are NOT bold */
+  font-size: 1.2rem; /* Make labels bigger */
+}
+
+/* Styling for the form input fields */
+input {
+  padding: 15px; /* Increased padding for larger inputs */
+  font-size: 1.2rem; /* Larger input text */
+  border-radius: 8px; /* Larger rounded corners */
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Styling for the login button */
+button {
+  padding: 15px 30px; /* Larger button */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem; /* Larger button text */
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px; /* Extra space above the button */
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for the error message */
+.error {
+  color: red;
+  font-size: 1.2rem; /* Make error messages slightly larger */
+  margin-bottom: 20px; /* Extra space below the error message */
+}
