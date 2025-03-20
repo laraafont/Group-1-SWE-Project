@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 /* Reset margins and padding for the entire page */
 * {
     margin: 0;
@@ -7,24 +8,29 @@
   
   html, body {
     height: 100%;
-    overflow: hidden; /* Prevents scrollbars if not needed */
-  }
+    overflow: hidden;
+    font-family: 'Bebas Neue', sans-serif; /* Apply Bebas Neue */
+}
+
   
   .signup {
     height: 100vh; /* Full height of the viewport */
     margin: 0; /* Ensure no margin */
     padding: 0; /* Ensure no padding */
-    background-color: #ffb1ee; /* Set the background color */
+    background-image: url('/MoviePosterBG.png');
+    background-size: cover; /* Ensure the image covers the entire viewport */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Avoid image tiling */
     display: flex;
     flex-direction: column; /* Stack elements vertically */
-}
+  }
 
   
   .signup-container {
     max-width: 650px; /* Increased width for a bigger form */
     width: 100%;
     padding: 50px; /* Increased padding for more space inside */
-    background-color: #fefaf7;
+    background-color: #fff8ee;
     border-radius: 12px; /* Slightly larger rounded corners */
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Larger shadow for better prominence */
     text-align: left; /* Align text to the left */
@@ -36,6 +42,7 @@
   
   /* Styling for the title */
   h3 {
+    font-family: 'Bebas Neue', sans-serif;
     color: #333;
     text-align: center; /* Keep the title centered */
     font-size: 2rem; /* Larger title */
@@ -50,14 +57,15 @@
   
   /* Ensure labels and inputs align to the left */
   label {
+    font-family: 'Bebas Neue', sans-serif;
     font-weight: normal; /* Ensure labels are NOT bold */
-    font-size: 1.2rem; /* Make labels bigger */
+    font-size: 1.4rem; /* Make labels bigger */
   }
   
   /* Styling for the form input fields */
   input {
     padding: 15px; /* Increased padding for larger inputs */
-    font-size: 1.2rem; /* Larger input text */
+    font-size: 1.0rem; /* Larger input text */
     border-radius: 8px; /* Larger rounded corners */
     border: 1px solid #ddd;
     width: 100%;
@@ -67,11 +75,12 @@
   /* Styling for the signup button */
   button {
     padding: 15px 30px; /* Larger button */
-    background-color: #ffb1ee; /* Green background */
+    background-color: #fda7cc; /* Green background */
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
     font-size: 1.2rem; /* Larger button text */
     width: 100%;
     box-sizing: border-box;
@@ -80,7 +89,7 @@
   
   /* Button hover effect */
   button:hover {
-    background-color: #e8a1d9
+    background-color: #eb90b7
     ;
   }
   
@@ -98,6 +107,7 @@
   }
   
   .signup-link a {
+    font-family: 'Bebas Neue', sans-serif;
     color: #4f4caf;
     text-decoration: none;
   }

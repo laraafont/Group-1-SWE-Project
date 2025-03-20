@@ -222,8 +222,8 @@ app.post('/signup', async (req, res, next) => {
     let success = false;
     let check = await Users.findOne({ email: req.body.email });
     if (check) {
-      console.log("user already exists with this email");
-      return res.status(400).json({ success: false, errors: "user already exists with this email" });
+      console.log("User already exists with this email");
+      return res.status(400).json({ success: false, errors: "User already exists with this email" });
     }
     let cart = {};
     for (let i = 0; i < 100; i++) {
@@ -275,8 +275,8 @@ app.post('/login', async (req, res, next) => {
       }
     }
     else {
-      console.log("please try with valid email and password")
-      return res.status(400).json({ success: success, errors: "please try with valid email and password" })
+      console.log("Please try with valid email and password")
+      return res.status(400).json({ success: success, errors: "Please try with valid email and password" })
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error });
