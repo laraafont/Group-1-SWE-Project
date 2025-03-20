@@ -16,7 +16,7 @@ html, body {
   height: 100vh; /* Full height of the viewport */
   margin: 0; /* Ensure no margin */
   padding: 0; /* Ensure no padding */
-  background-image: url('/purple.jpg');
+  background-image: url('/MoviePosterBG2.png');
   background-size: cover; /* Ensure the image covers the entire viewport */
   background-position: center; /* Center the background image */
   background-repeat: no-repeat; /* Avoid image tiling */
@@ -28,7 +28,7 @@ html, body {
   max-width: 650px; /* Increased width for a bigger form */
   width: 100%;
   padding: 50px; /* Increased padding for more space inside */
-  background-color: #fefaf7;
+  background-color: #fff8ee;
   border-radius: 12px; /* Slightly larger rounded corners */
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Larger shadow for better prominence */
   text-align: left; /* Align text to the left */
