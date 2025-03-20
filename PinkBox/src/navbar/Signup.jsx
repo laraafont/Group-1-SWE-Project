@@ -1,52 +1,55 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css';
+import './login.css'; // Reusing the same CSS
 
-export default function Login() {
+export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (!email || !password) {
-      setError("Please fill in both fields");
+
+    if (!email || !password || !confirmPassword) {
+      setError("Please fill in all fields");
       return;
     }
-  
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:4000/login", {
+      const response = await fetch("http://localhost:4000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
-        throw new Error(data.errors || "Invalid email or password");
+        throw new Error(data.errors || "Failed to sign up");
       }
-  
-      console.log("Login successful:", data);
-      localStorage.setItem("auth-token", data.token);
-  
-      setError(""); 
-      navigate("/"); 
+
+      console.log("Signup successful:", data);
+      navigate("/login"); // Redirect to login after successful sign-up
     } catch (error) {
-      setError(error.message); 
+      setError(error.message);
     }
   };
 
   return (
     <div className="login-container">
-      <h3>Login</h3>
+      <h3>Sign Up</h3>
 
-      {error && <p className="error">{error}</p>} 
+      {error && <p className="error">{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -69,15 +72,22 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
           required
-          autoComplete="current-password"
+          autoComplete="new-password"
         />
 
-        <button type="submit">Login</button>
-      </form>
+        <label htmlFor="confirm-password">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirm-password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm your password"
+          required
+          autoComplete="new-password"
+        />
 
-      <div className="signup-link">
-        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-      </div>
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
   );
 }
