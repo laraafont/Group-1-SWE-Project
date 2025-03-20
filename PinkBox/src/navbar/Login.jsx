@@ -9,36 +9,24 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  const dummyUser = {
+    email: 'test@example.com',
+    password: 'password123',
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     if (!email || !password) {
-      setError("Please fill in both fields");
+      setError('Please fill in both fields');
       return;
     }
-  
-    try {
-      const response = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-  
-      const data = await response.json();
-  
-      if (!response.ok) {
-        throw new Error(data.errors || "Invalid email or password");
-      }
-  
-      console.log("Login successful:", data);
-      localStorage.setItem("auth-token", data.token);
-  
-      setError(""); 
-      navigate("/"); 
-    } catch (error) {
-      setError(error.message); 
+
+    if (email === dummyUser.email && password === dummyUser.password) {
+      console.log('Login successful!');
+      setError('');
+      navigate('/'); // Redirect on success
+    } else {
+      setError('Invalid email or password');
     }
   };
 
@@ -46,9 +34,10 @@ export default function Login() {
     <div className="login-container">
       <h3>Login</h3>
 
-      {error && <p className="error">{error}</p>} 
+      {error && <p className="error" aria-live="polite">{error}</p>}
 
       <form onSubmit={handleSubmit}>
+        {/* Email Input */}
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -61,6 +50,7 @@ export default function Login() {
           autoComplete="email"
         />
 
+        {/* Password Input */}
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -74,10 +64,6 @@ export default function Login() {
 
         <button type="submit">Login</button>
       </form>
-
-      <div className="signup-link">
-        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-      </div>
     </div>
   );
 }

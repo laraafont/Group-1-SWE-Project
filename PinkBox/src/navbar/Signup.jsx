@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css'; // Reusing the same CSS
+import './signup.css';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -46,7 +46,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="login-container">
+    <div className="signup-container">
       <h3>Sign Up</h3>
 
       {error && <p className="error">{error}</p>}
