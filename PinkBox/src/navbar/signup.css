@@ -1,118 +1,132 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 /* Reset margins and padding for the entire page */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Ensures padding doesn't affect the element's width */
-  }
-  
-  html, body {
+}
+
+html, body {
     height: 100%;
     overflow: hidden;
     font-family: 'Bebas Neue', sans-serif; /* Apply Bebas Neue */
 }
 
-  
-  .signup {
+/* Signup page styling */
+.signup {
     height: 100vh; /* Full height of the viewport */
-    margin: 0; /* Ensure no margin */
-    padding: 0; /* Ensure no padding */
+    margin: 0;
+    padding: 0;
     background-image: url('/MoviePosterBG.png');
-    background-size: cover; /* Ensure the image covers the entire viewport */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Avoid image tiling */
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-  }
-
-  
-  .signup-container {
-    max-width: 650px; /* Increased width for a bigger form */
-    width: 100%;
-    padding: 50px; /* Increased padding for more space inside */
-    background-color: #fff8ee;
-    border-radius: 12px; /* Slightly larger rounded corners */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Larger shadow for better prominence */
-    text-align: left; /* Align text to the left */
-  
-    /* Center the signup container vertically and horizontally */
-    margin: auto; 
-    margin-top: 50px; /* Adjust this if you need more space between navbar and form */
-  }
-  
-  /* Styling for the title */
-  h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    color: #333;
-    text-align: center; /* Keep the title centered */
-    font-size: 2rem; /* Larger title */
-  }
-  
-  /* Styling for the form */
-  form {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Increase gap for better spacing */
-  }
-  
-  /* Ensure labels and inputs align to the left */
-  label {
+}
+
+.signup-container {
+    max-width: 650px;
+    width: 100%;
+    padding: 50px;
+    background-color: #fff8ee;
+    border-radius: 6px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    margin: auto;
+    margin-top: 100px;
+}
+
+/* Title styling */
+h3 {
     font-family: 'Bebas Neue', sans-serif;
-    font-weight: normal; /* Ensure labels are NOT bold */
-    font-size: 1.4rem; /* Make labels bigger */
-  }
-  
-  /* Styling for the form input fields */
-  input {
-    padding: 15px; /* Increased padding for larger inputs */
-    font-size: 1.0rem; /* Larger input text */
-    border-radius: 8px; /* Larger rounded corners */
+    color: #333;
+    text-align: center;
+    font-size: 2rem;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: normal;
+    font-size: 1.4rem;
+}
+
+input {
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
     border: 1px solid #ddd;
     width: 100%;
     box-sizing: border-box;
-  }
-  
-  /* Styling for the signup button */
-  button {
-    padding: 15px 30px; /* Larger button */
-    background-color: #fda7cc; /* Green background */
+}
+
+/* Password field container */
+.password-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Show password toggle styling */
+.show-password {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.show-password input {
+    margin-right: 8px;
+    width: auto;
+}
+
+/* Updated: Target only signup page button */
+.signup-container button {
+    padding: 15px 30px;
+    background-color: #e8a3b9;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem; /* Larger button text */
+    font-size: 1.2rem;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 20px; /* Extra space above the button */
-  }
-  
-  /* Button hover effect */
-  button:hover {
-    background-color: #eb90b7
-    ;
-  }
-  
-  /* Styling for the error message */
-  .error {
+    margin-top: 20px;
+}
+
+.signup-container button:hover {
+    background-color: #e08ea8;
+}
+
+/* Error message styling */
+.error {
     color: red;
-    font-size: 1.2rem; /* Make error messages slightly larger */
-    margin-bottom: 20px; /* Extra space below the error message */
-  }
-  
-  /* Link styling */
-  .signup-link {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* Link styling */
+.signup-link {
     text-align: center;
     margin-top: 15px;
-  }
-  
-  .signup-link a {
+}
+
+.signup-link a {
     font-family: 'Bebas Neue', sans-serif;
     color: #4f4caf;
     text-decoration: none;
-  }
-  
-  .signup-link a:hover {
+}
+
+.signup-link a:hover {
     text-decoration: underline;
-  }
-  
+}

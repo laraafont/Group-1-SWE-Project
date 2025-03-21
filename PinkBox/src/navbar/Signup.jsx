@@ -7,6 +7,8 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -46,7 +48,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup"> {}
+    <div className="signup">
       <div className="signup-container">
         <h3>Sign Up</h3>
 
@@ -66,26 +68,46 @@ export default function Signup() {
           />
 
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-            autoComplete="new-password"
-          />
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+              autoComplete="new-password"
+            />
+            <label className="show-password">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />
+              Show Password
+            </label>
+          </div>
 
           <label htmlFor="confirm-password">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirm-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
-            required
-            autoComplete="new-password"
-          />
+          <div className="password-container">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirm-password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your password"
+              required
+              autoComplete="new-password"
+            />
+            <label className="show-password">
+              <input
+                type="checkbox"
+                checked={showConfirmPassword}
+                onChange={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+              Show Password
+            </label>
+          </div>
 
           <button type="submit">Sign Up</button>
         </form>
