@@ -7,12 +7,12 @@
   
   /* Style for the navigation bar */
   nav {
-    background-color: #f6f1e0; 
+    background-color: #fac6ec; 
     padding: 20px 40px;
     display: flex;
     justify-content: space-between; /* Space out the nav links */
     align-items: center;
-    border-radius: 30px;
+    border-radius: 20px;
   }
   
   /* Wrapper for the left-aligned links */
@@ -29,7 +29,7 @@ nav .right-links {
 
   /* Style for the navigation links */
   nav a {
-    color: #fac; /* White text color for links */
+    color: rgb(30, 39, 130); /* White text color for links */
     text-decoration: none; /* Remove underline from links */
     font-size: 1.4rem;
     padding: 8px 15px;
@@ -39,12 +39,12 @@ nav .right-links {
   
   /* Hover effect for the links */
   nav a:hover {
-    background-color: #E5F4D1; /* Lighten the background on hover */
-    color: #ED9FD7;
+    background-color: #f3b8e4; /* Lighten the background on hover */
+    color: #4a61b3;
   }
   
   /* Active link style */
   nav a.active {
-    background-color: #E5F4D1; /* Highlight the active page with a blue color */
-    color: #ED9FD7;
+    background-color: #fac6ec; /* Highlight the active page with a blue color */
+    color: #7474db;
   }
