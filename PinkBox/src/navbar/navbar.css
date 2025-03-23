@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between; /* Space out the nav links */
     align-items: center;
-    border-radius: 20px;
+    border-radius: 0px;
   }
   
   /* Wrapper for the left-aligned links */
@@ -33,7 +33,7 @@ nav .right-links {
     text-decoration: none; /* Remove underline from links */
     font-size: 1.4rem;
     padding: 8px 15px;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
   }
   
