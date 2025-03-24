@@ -1,0 +1,9 @@
+.movies-container {
+    background-color: #fbf2e9; /* Example dark blue-gray background */
+    color: rgb(247, 198, 219); /* Ensures text is readable */
+    min-height: 100vh; /* Covers the full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
