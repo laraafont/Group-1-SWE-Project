@@ -1,9 +1,55 @@
-.movies-container {
-    background-color: #fbf2e9; /* Example dark blue-gray background */
-    color: rgb(247, 198, 219); /* Ensures text is readable */
-    min-height: 100vh; /* Covers the full viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+.movie-page {
+  font-family: 'Bebas Neue', sans-serif;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+.movie-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 36px;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-height: 80vh; /* Set a max height for the movie list */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-right: 20px; /* Add space for scrollbar */
+}
+
+.movie-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.movie-item:hover {
+  transform: scale(1.05);
+}
+
+.movie-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.movie-item h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.movie-item p {
+  font-size: 14px;
+  color: #555;
+}
+
+.movie-item p strong {
+  font-weight: bold;
+}
