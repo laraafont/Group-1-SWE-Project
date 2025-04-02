@@ -5,7 +5,7 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [generalGenres, setGeneralGenres] = useState([
-    'Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Adventure', 'Fantasy','Thriller', 'History', 'Animation'
+    'Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Adventure', 'Fantasy', 'Thriller', 'History', 'Animation'
   ]);
   const [selectedGenres, setSelectedGenres] = useState([]);
 
@@ -17,7 +17,7 @@ const Movies = () => {
         const data = await response.json();
         if (data.success) {
           setMovies(data.movies);
-          setFilteredMovies(data.movies);  // Initially, show all movies
+          setFilteredMovies(data.movies); // Initially, show all movies
         } else {
           console.log("No movies found");
         }
@@ -31,21 +31,19 @@ const Movies = () => {
 
   // Handle genre selection (clickable)
   const handleGenreClick = (genre) => {
-    setSelectedGenres(prevGenres => {
-      if (prevGenres.includes(genre)) {
-        return prevGenres.filter(g => g !== genre);  // Deselect
-      } else {
-        return [...prevGenres, genre];  // Select
-      }
-    });
+    setSelectedGenres(prevGenres =>
+      prevGenres.includes(genre)
+        ? prevGenres.filter(g => g !== genre) // Deselect
+        : [...prevGenres, genre] // Select
+    );
   };
 
   // Filter movies based on selected genres
   useEffect(() => {
     if (selectedGenres.length === 0) {
-      setFilteredMovies(movies);  // Show all movies if no genre is selected
+      setFilteredMovies(movies); // Show all movies if no genre is selected
     } else {
-      const filtered = movies.filter(movie => 
+      const filtered = movies.filter(movie =>
         selectedGenres.some(genre => movie.genre.includes(genre))
       );
       setFilteredMovies(filtered);
@@ -54,6 +52,7 @@ const Movies = () => {
 
   return (
     <div className="movie-page">
+      {/* Genre Filter Sidebar */}
       <div className="genre-filter">
         <h3>Filter by Genre:</h3>
         <div className="checkbox-group">
@@ -68,14 +67,16 @@ const Movies = () => {
           ))}
         </div>
       </div>
+
+      {/* Movie List */}
       <div className="movie-list">
         {filteredMovies.map(movie => (
           <div key={movie.id} className="movie-item">
-            <img src={`http://localhost:4000/images/${movie.image}`} alt={movie.title} className="movie-image" />
-            <h2>{movie.title}</h2>
-            <p>{movie.description}</p>
-            <p><strong>Genre:</strong> {movie.genre}</p>
-            <p><strong>Cost:</strong> ${movie.cost}</p>
+            {/* Movie Image */}
+            <img className="movie-image" src={movie.image} alt={movie.title} />
+            
+            {/* Movie Title Overlay */}
+            <div className="movie-title">{movie.title}</div>
           </div>
         ))}
       </div>

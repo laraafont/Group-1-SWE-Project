@@ -6,6 +6,7 @@
   justify-content: space-between;
 }
 
+/* Genre Filter Sidebar */
 .genre-filter {
   width: 250px;
   padding: 20px;
@@ -18,10 +19,8 @@
   font-size: 18px;
   margin-bottom: 10px;
   text-align: left;
-  white-space: nowrap; /* Prevents text from wrapping */
+  white-space: nowrap;
 }
-
-
 
 .checkbox-group {
   display: flex;
@@ -38,18 +37,19 @@
   margin: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  text-align: left; /* Align the text to the left */
+  text-align: left;
 }
 
 .genre-button.selected {
-  background-color: rgb(30, 39, 130); /* Color when selected */
+  background-color: rgb(30, 39, 130);
   color: white;
 }
 
 .genre-button:hover {
-  background-color: #ddd; /* Slight hover effect */
+  background-color: #ddd;
 }
 
+/* Movie List Grid */
 .movie-list {
   flex-grow: 1;
   display: flex;
@@ -61,36 +61,47 @@
   padding-right: 20px;
 }
 
+/* Movie Item with Hover Effect */
 .movie-item {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* Needed for absolute positioning of the title */
   width: 250px;
-  text-align: center;
-  padding: 20px;
-  transition: transform 0.3s ease;
+  height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .movie-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Movie Image */
 .movie-image {
-  width: auto;
-  height: auto;
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.movie-item h2 {
-  font-size: 20px;
-  margin: 10px 0;
-}
-
-.movie-item p {
-  font-size: 14px;
-  color: #555;
-}
-
-.movie-item p strong {
+/* Movie Title Overlay (Initially Hidden) */
+.movie-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
   font-weight: bold;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+}
+
+/* Show Title on Hover */
+.movie-item:hover .movie-title {
+  opacity: 1;
 }
