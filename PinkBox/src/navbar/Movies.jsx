@@ -8,6 +8,8 @@ const Movies = () => {
     'Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Adventure', 'Fantasy', 'Thriller', 'History', 'Animation'
   ]);
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null); // To store the movie selected for the modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // To track modal visibility
 
   useEffect(() => {
     // Fetch movies from the backend
@@ -50,6 +52,18 @@ const Movies = () => {
     }
   }, [selectedGenres, movies]);
 
+  // Open Modal and set selected movie
+  const openModal = (movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  // Close Modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedMovie(null);
+  };
+
   return (
     <div className="movie-page">
       {/* Genre Filter Sidebar */}
@@ -71,15 +85,25 @@ const Movies = () => {
       {/* Movie List */}
       <div className="movie-list">
         {filteredMovies.map(movie => (
-          <div key={movie.id} className="movie-item">
-            {/* Movie Image */}
+          <div key={movie.id} className="movie-item" onClick={() => openModal(movie)}>
             <img className="movie-image" src={movie.image} alt={movie.title} />
-            
-            {/* Movie Title Overlay */}
             <div className="movie-title">{movie.title}</div>
           </div>
         ))}
       </div>
+
+      {/* Movie Details Modal */}
+      {isModalOpen && selectedMovie && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{selectedMovie.title}</h2>
+            <p>{selectedMovie.description}</p>
+            <p><strong>Genre:</strong> {selectedMovie.genre}</p>
+            <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
