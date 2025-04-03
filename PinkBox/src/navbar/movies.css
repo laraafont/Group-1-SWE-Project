@@ -38,6 +38,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: left;
+  max-width: 100%;
 }
 
 .genre-button.selected {
