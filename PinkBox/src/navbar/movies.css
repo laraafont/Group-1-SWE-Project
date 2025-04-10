@@ -8,8 +8,8 @@
 
 /* Genre Filter Sidebar */
 .genre-filter {
-  width: 250px;
-  padding: 20px;
+  width: 180px;
+  padding: 16px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -18,15 +18,17 @@
 .genre-filter h3 {
   font-size: 18px;
   margin-bottom: 10px;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
 }
 
 .checkbox-group {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center; /* ⬅️ Center horizontally */
+  gap: 5px;
 }
+
 
 .genre-button {
   font-family: 'Bebas Neue', sans-serif;
@@ -37,8 +39,8 @@
   margin: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  text-align: left;
-  max-width: 100%;
+  text-align: center;
+  width: 100px;
 }
 
 .genre-button.selected {
@@ -144,11 +146,25 @@
 
 /* Close button (positioned at the bottom right of the modal) */
 .modal-content button.close-btn {
-  position: absolute; /* Position it absolutely within the modal */
-  bottom: 20px; /* Set distance from the bottom */
-  right: 20px; /* Set distance from the right */
+  font-family: 'Bebas Neue', sans-serif;
+  position: absolute; 
+  bottom: 20px;
+  right: 20px;
   padding: 10px 15px;
   background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.add-to-cart-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  position: absolute; 
+  bottom: 80px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #864f6b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -158,3 +174,31 @@
 .modal-content button.close-btn:hover {
   background-color: #0056b3;
 }
+
+.modal-content button.add-to-cart-btn:hover {
+  background-color: #5d3047;
+}
+
+.movie-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.movie-search-bar {
+  width: 100%;
+  text-align: center;
+}
+
+.movie-search-input {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  padding: 10px 20px;
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
