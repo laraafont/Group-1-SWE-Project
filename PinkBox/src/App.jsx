@@ -3,13 +3,14 @@ import NavBar from "./navbar/NavBar";
 import Home from "./navbar/Home";
 import Movies from "./navbar/Movies";
 import Login from "./navbar/Login";
-import Signup from "./navbar/Signup";  // Import the Signup component
+import Signup from "./navbar/Signup";  
 import Cart from "./navbar/Cart";
 import Wishlist from "./navbar/Wishlist";
 
 function App() {
   return (
     <BrowserRouter>
+      <NavBar /> {/* Move the NavBar outside of Routes so it renders on all pages */}
       <Routes>
         <Route
           path="/login"
@@ -19,23 +20,18 @@ function App() {
               <p>
                 Don't have an account?{" "}
                 <Link to="/signup">Sign up here</Link>
-              </p> {/* Link to Signup page */}
+              </p>
             </div>
           }
         />
-        <Route
-          path="/signup"
-          element={<Signup />} // Add route for Signup page
-        />
+        <Route path="/signup" element={<Signup />} /> 
+        <Route path="/movies" element={<Movies />} /> {/* Movies page route */}
         <Route
           path="/*"
           element={
-            <>
-              <NavBar /> {/* Render Navbar on other pages */}
-              <div>
-                <h2 style={{ textAlign: 'center', fontFamily: 'Helvetica', fontSize: '1.5rem', color: '#333' }}></h2>
-              </div>
-            </>
+            <div>
+              <h2 style={{ textAlign: 'center', fontFamily: 'Helvetica', fontSize: '1.5rem', color: '#333' }}></h2>
+            </div>
           }
         />
       </Routes>

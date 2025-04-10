@@ -1,9 +1,160 @@
-.movies-container {
-    background-color: #fbf2e9; /* Example dark blue-gray background */
-    color: rgb(247, 198, 219); /* Ensures text is readable */
-    min-height: 100vh; /* Covers the full viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+.movie-page {
+  font-family: 'Bebas Neue', sans-serif;
+  padding: 20px;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Genre Filter Sidebar */
+.genre-filter {
+  width: 250px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.genre-filter h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.genre-button {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left;
+  max-width: 100%;
+}
+
+.genre-button.selected {
+  background-color: rgb(30, 39, 130);
+  color: white;
+}
+
+.genre-button:hover {
+  background-color: #ddd;
+}
+
+/* Movie List Grid */
+.movie-list {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  overflow-y: auto;
+  max-height: 80vh;
+  padding-right: 20px;
+}
+
+/* Movie Item with Hover Effect */
+.movie-item {
+  position: relative; /* Needed for absolute positioning of the title */
+  width: 250px;
+  height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-item:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Movie Image */
+.movie-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Movie Title Overlay (Initially Hidden) */
+.movie-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+}
+
+/* Show Title on Hover */
+.movie-item:hover .movie-title {
+  opacity: 1;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative; /* Add this to make the button position relative to the modal */
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 1000px;
+  height: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgb(255, 255, 240); /* Add a temporary color */
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin: 10px 0;
+}
+
+/* Close button (positioned at the bottom right of the modal) */
+.modal-content button.close-btn {
+  position: absolute; /* Position it absolutely within the modal */
+  bottom: 20px; /* Set distance from the bottom */
+  right: 20px; /* Set distance from the right */
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.close-btn:hover {
+  background-color: #0056b3;
+}
