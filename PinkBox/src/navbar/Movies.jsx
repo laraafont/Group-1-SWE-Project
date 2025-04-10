@@ -115,12 +115,22 @@ const Movies = () => {
       {isModalOpen && selectedMovie && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedMovie.title}</h2>
-            <p>{selectedMovie.description}</p>
-            <p><strong>Genre:</strong> {selectedMovie.genre}</p>
-            <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
-            <button className="close-btn" onClick={closeModal}>Close</button>
+            <div className="modal-body">
+              <img
+                className="modal-movie-image"
+                src={selectedMovie.image}
+                alt={selectedMovie.title}
+              />
+              <div className="modal-movie-info">
+                <h2>{selectedMovie.title}</h2>
+                <p>{selectedMovie.description}</p>
+                <p><strong>Genre:</strong> {selectedMovie.genre}</p>
+                <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
+              </div>
+            </div>
             <button className="add-to-cart-btn" onClick={closeModal}>Add To Cart</button>
+            <button className="close-btn" onClick={closeModal}>Close</button>
+            <button className="wishlist-btn" onClick={closeModal}>Add To Wishlist</button>
           </div>
         </div>
       )}

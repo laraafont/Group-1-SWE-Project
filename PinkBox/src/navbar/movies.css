@@ -25,7 +25,7 @@
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* ⬅️ Center horizontally */
+  justify-content: center; 
   gap: 5px;
 }
 
@@ -64,7 +64,6 @@
   padding-right: 20px;
 }
 
-/* Movie Item with Hover Effect */
 .movie-item {
   position: relative; /* Needed for absolute positioning of the title */
   width: 250px;
@@ -88,13 +87,13 @@
   border-radius: 10px;
 }
 
-/* Movie Title Overlay (Initially Hidden) */
+/* Movie Title Overlay */
 .movie-title {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+  background: rgba(0, 0, 0, 0.7);
   color: white;
   text-align: center;
   padding: 10px;
@@ -125,15 +124,16 @@
 
 /* Modal Content */
 .modal-content {
-  position: relative; /* Add this to make the button position relative to the modal */
+  position: relative;
   background: white;
   padding: 20px;
   border-radius: 8px;
-  width: 1000px;
+  width: 800px;
   height: 500px;
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-color: rgb(255, 255, 240); /* Add a temporary color */
+  background-color: rgb(255, 255, 240); 
+  font-size: 24px;
 }
 
 .modal-content h2 {
@@ -171,6 +171,19 @@
   cursor: pointer;
 }
 
+.modal-content button.wishlist-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  position: absolute; 
+  bottom: 140px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #457356;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .modal-content button.close-btn:hover {
   background-color: #0056b3;
 }
@@ -178,6 +191,32 @@
 .modal-content button.add-to-cart-btn:hover {
   background-color: #5d3047;
 }
+
+.modal-content button.wishlist-btn:hover {
+  background-color: #285237;
+}
+
+.modal-body {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+.modal-movie-image {
+  width: 300px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.modal-movie-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
 
 .movie-controls {
   display: flex;
@@ -188,7 +227,7 @@
 }
 
 .movie-search-bar {
-  width: 100%;
+  width: 200px;
   text-align: center;
 }
 
