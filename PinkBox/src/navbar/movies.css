@@ -147,10 +147,11 @@
 /* Close button (positioned at the bottom right of the modal) */
 .modal-content button.close-btn {
   font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
   position: absolute; 
   bottom: 20px;
   right: 20px;
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: #007BFF;
   color: white;
   border: none;
@@ -160,10 +161,11 @@
 
 .modal-content button.add-to-cart-btn {
   font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
   position: absolute; 
   bottom: 80px;
   right: 20px;
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: #864f6b;
   color: white;
   border: none;
@@ -173,10 +175,11 @@
 
 .modal-content button.wishlist-btn {
   font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
   position: absolute; 
   bottom: 140px;
   right: 20px;
-  padding: 10px 15px;
+  padding: 10px 20px;
   background-color: #457356;
   color: white;
   border: none;
@@ -211,11 +214,14 @@
 
 .modal-movie-info {
   flex: 1;
+  max-width: 390px; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
+  word-wrap: break-word;
 }
+
 
 
 .movie-controls {
