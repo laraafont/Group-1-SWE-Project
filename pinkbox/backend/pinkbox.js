@@ -372,3 +372,14 @@ app.listen(port, (error) => {
   if (!error) console.log("Server Running on port " + port);
   else console.log("Error : ", error);
 });
+
+app.post('/addwishlist', fetchuser, async (req, res, next) => {
+  try {
+    console.log("Add to Wishlist");
+    let userData = await Users.findOne({ _id: req.user.id});
+    res.json({sucess: true, userData: userData.cardData});
+  } catch (error) {
+    res.status(500).json({ success: false, error: error});
+    next(error);
+  }
+});
