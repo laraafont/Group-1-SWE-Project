@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 // Replace with your backend API URL
-const backendAPI = 'http://localhost:4000/addmovie';
+const backendAPI = 'http://localhost:4000/OMDBaddmovie';
 
 const costs = [0.99, 1.99, 2.99, 3.99];
 const streamingUrls = [
@@ -47,6 +47,7 @@ async function addMovieToDatabase(movieData) {
       streaming_url: streamingUrl,
       new_release: false,
       available: true,
+      year: movieData.Year,      
     };
 
     const response = await axios.post(backendAPI, moviePayload);
