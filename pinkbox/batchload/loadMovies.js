@@ -18,6 +18,7 @@ const OMDBmovieSchema = new mongoose.Schema({
   streaming_url: { type: String, required: true },
   new_release: { type: Boolean, required: true, default: false },
   available: { type: Boolean, default: true },
+  year: { type: String, default: false },
 });
 
 const OMDBMovie = mongoose.model('OMDBMovie', OMDBmovieSchema);
@@ -51,6 +52,7 @@ async function addMovieToDatabase(movieData) {
       streaming_url: 'N/A', // Update this value if you have actual streaming URL data
       new_release: false,
       available: true,
+      year: movieData.Year,
     });
     await newMovie.save();
     console.log(`Successfully added ${movieData.Title} to the database.`);
