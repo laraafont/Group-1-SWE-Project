@@ -39,6 +39,7 @@ const Users = mongoose.model("Users", {
   email: { type: String, unique: true },
   password: { type: String },
   cartData: { type: Object },
+  wishlist: { type: [String], default: [] }, // an array of strings for movie titles
   date: { type: Date, default: Date.now() },
 });
 
@@ -534,11 +535,113 @@ app.listen(port, (error) => {
 
 app.post('/addwishlist', fetchuser, async (req, res, next) => {
   try {
-    console.log("Add to Wishlist");
-    let userData = await Users.findOne({ _id: req.user.id});
-    res.json({sucess: true, userData: userData.cardData});
+    const {title} = req.body; // extracting the title from the request body (all of movie info)
+    const user = await Users.findById(req.user.id); // gets the current logged-in user from database through JWT
+
+    if (!user.wishlist.includes(title)) { // to check of movie is already in array of movies in user
+      user.wishlist.push(title); // if not, add movie title to end of wishlist array
+      await user.save(); // saved the updated user document
+      res.json({ 
+        success: true, 
+        message: "Movie added to wishlist", 
+        wishlist: user.wishlist
+      }); // sends success and updated wishlist to frontend 
+    } else {
+      res.json({ 
+        success: false, 
+        message: "Movie is already in wishlist"
+      }); // nothing happens, just a message
+    }
   } catch (error) {
-    res.status(500).json({ success: false, error: error});
+    res.status(500).json({ 
+      success: false, 
+      error: error.message
+    }); // just a catch block to handle any errors
+    next(error); 
+  }
+});
+
+app.post('/removewishlist', fetchuser, async (req, res, next) =>  {
+  try {
+    const { title } = req.body;
+    const user = await Users.findById(req.user.id); // finds logged in user from JWT token
+    
+    if (!user.wishlist.includes(title)) {
+      return res.json({
+        success: false,
+        message: "Movie not found in wishlist"
+      });
+    } // we have this check in case users trying removing a title that isnt in their wishlist
+
+    user.wishlist = user.wishlist.filter(item => item !== title); // go through each item and keep everything that isnt the title inputted
+    await user.save(); // saves updated user document
+    res.json({
+      success: true,
+      message: "Movie removed from wishlist",
+      wishlist: user.wishlist
+    }); // sending a response to frontend and returns updated wishlist
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    }); // handles any errors
+    next(error); // sends error 
+  }
+});
+
+app.post('/getwishlist', fetchuser, async (req, res, next) => {
+  try {
+    const user = await Users.findById(req.user.id);
+    const movies = await Movie.find({ title: { $in: user.wishlist}}); // give all movie documents whose title are in the user's wishlist
+
+    res.json({
+      success: true,
+      wishlist: movies
+    }); // sends back all the movie objects as the wishlist
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    }); // standard error handling
+    next(error);
+  }
+});
+
+app.post('/wishlist-to-cart', fetchuser, async (req, res, next) => {
+  try {
+    const { title } = req.body; // just extracting movie title
+    const user = await Users.findById(req.user.id); // loads current user's documents (cart and wishlist info)
+    const movie = await Movie.findOne({ title }); // finds movie document from the database so we can get movie's ID
+
+    if (!movie) {
+      return res.status(404).json({
+        success:false,
+        message: "Movie not found"
+      }); // if movie doesn't exist in our database return an error
+    }
+
+    const itemId = movie.id; // extracts id field of movie for usage
+
+    if (!user.cartData[itemId]) { // adding to cart from wishlist
+      user.cartData[itemId] = 1; // if the movie isnt in the cart yet, set quantity to 1
+    } else {
+      user.cartData[itemId] += 1; // if movie is in cart already, increment the quantity
+    }
+
+    user.wishlist = user.wishlist.filter(item => item !== title); // remove from wishlist after being moved to cart
+    await user.save(); // update user's data
+
+    res.json({
+      success: true,
+      message: "Movie moved from wishlist to cart",
+      cart: user.cartData,
+      wishlist: user.wishlist
+    }); // send response saying that the movie has been removed from wishlist and return their cart and wishlist
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    }); // standard error handling
     next(error);
   }
 });
