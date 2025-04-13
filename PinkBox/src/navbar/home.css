@@ -1,8 +1,9 @@
 .home-container {
-    display: flex;
-    flex-direction: column;
-    padding: 10px ;
-  }
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
   
   .movie-carousel {
     width: 100%;
@@ -15,6 +16,7 @@
   .movie-images-container {
     display: flex; /* Lay out images horizontally */
     gap: 10px; /* Space between images */
+  
   }
   
   .movie-slide {
