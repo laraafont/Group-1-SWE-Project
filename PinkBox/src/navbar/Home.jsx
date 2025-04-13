@@ -17,16 +17,19 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h2>Newest Releases</h2>
       <div className="movie-carousel">
-        {movies.map((movie) => (
-          <div className="movie-slide" key={movie.id}>
-            <img src={movie.image} alt={movie.title} className="movie-image" />
-            {/* You can optionally add movie.title or other info here */}
-          </div>
-        ))}
+        <div className="movie-images-container">
+          {movies.map((movie) => (
+            <div className="movie-slide" key={movie.id}>
+              <img src={movie.image} alt={movie.title} className="movie-image" />
+              <div className="movie-info">
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-  
+
+      {/* Other content below the carousel */}
       <div className="content-below">
         <h2>More Content Coming Soon!</h2>
       </div>
