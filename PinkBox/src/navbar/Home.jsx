@@ -5,7 +5,7 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/newreleases") // Adjust API URL if necessary
+    fetch("http://localhost:5173/newreleases") // Adjust API URL if necessary
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
