@@ -27,6 +27,18 @@ nav .right-links {
   gap: 55px;
 }
 
+.navbar-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full height of screen */
+  overflow-y: auto; /* allow scroll when needed */
+}
+
+.page-content {
+  flex-grow: 1;
+  padding: 2rem;
+}
+
   /* Style for the navigation links */
   nav a {
     color: rgb(30, 39, 130); /* White text color for links */

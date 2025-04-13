@@ -9,7 +9,7 @@
 
 html, body {
   height: 100%;
-  overflow: hidden; /* Prevents scrollbars if not needed */
+  overflow: auto; /* Prevents scrollbars if not needed */
   font-family: 'Bebas Neue', sans-serif; /* Apply Bebas Neue */
 }
 
