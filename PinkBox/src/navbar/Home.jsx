@@ -7,20 +7,23 @@ const Home = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/allmovies")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/allmovies");
+        const data = await response.json();
         if (data.success) {
           setAllMovies(data.movies);
-
-          // Filter for movies that are releasing in 2024 or 2025
           const currentReleases = data.movies.filter(
             (movie) => movie.year === 2025 || movie.year === 2024
           );
           setNewReleases(currentReleases);
         }
-      })
-      .catch((err) => console.error("Error fetching movies:", err));
+      } catch (err) {
+        console.error("Error fetching movies:", err);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
   // Filter movies by streaming platform
@@ -33,16 +36,11 @@ const Home = () => {
   const amazonMovies = filterByPlatform("amazon.com");
 
   // Open modal for movie details on click
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
-  };
+  const handleMovieClick = (movie) => setSelectedMovie(movie);
+  // Close modal
+  const closeModal = () => setSelectedMovie(null);
 
-  // Close the modal
-  const closeModal = () => {
-    setSelectedMovie(null);
-  };
-
-  // Reusable carousel component
+  // Reusable carousel component for movie lists
   const renderCarousel = (title, movieList) => (
     <div className="movie-carousel">
       <h2>{title}</h2>
@@ -54,11 +52,7 @@ const Home = () => {
             onClick={() => handleMovieClick(movie)}
             style={{ position: "relative", cursor: "pointer" }}
           >
-            <img
-              src={movie.image}
-              alt={movie.title}
-              className="movie-image"
-            />
+            <img src={movie.image} alt={movie.title} className="movie-image" />
             <div className="movie-info">
               <p className="movie-title">{movie.title}</p>
             </div>

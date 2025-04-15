@@ -1,10 +1,14 @@
 .movie-page {
   font-family: 'Bebas Neue', sans-serif;
-  padding: 10px;
-  background-color: #f8f8f8;
+  padding: 20px;
+  margin-top: 30px;
+  background-color: #ebf4df;
   display: flex;
-  justify-content: space-between;
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);
+  overflow-y: auto;
 }
+
 
 
 .genre-button {
@@ -143,15 +147,16 @@
 
 /* Modal Content */
 .modal-content {
-  position: relative; /* Add this to make the button position relative to the modal */
+  position: relative;
   background: white;
   padding: 20px;
   border-radius: 8px;
   width: 1000px;
-  height: 500px;
   max-width: 90%;
+  max-height: 90vh;  /* adjust height relative to viewport */
+  overflow-y: auto;  /* allow internal scrolling if content exceeds available space */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-color: rgb(255, 255, 240); /* Add a temporary color */
+  background-color: rgb(255, 255, 240);
 }
 
 .modal-content h2 {

@@ -37,6 +37,7 @@ nav .right-links {
 .page-content {
   flex-grow: 1;
   padding: 0 1rem;
+  background-color: #FBF8F4;
 }
 
   /* Style for the navigation links */
