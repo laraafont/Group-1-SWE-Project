@@ -95,7 +95,7 @@ const Movies = () => {
             <p>{selectedMovie.description}</p>
             <p><strong>Genre:</strong> {selectedMovie.genre}</p>
             <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
-            <button onClick={closeModal}>Close</button>
+            <button className= "modal-close-button" onClick={closeModal}>Close</button>
           </div>
         </div>
       )}

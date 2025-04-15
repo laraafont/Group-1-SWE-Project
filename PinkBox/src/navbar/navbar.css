@@ -8,11 +8,11 @@
   /* Style for the navigation bar */
   nav {
     background-color: #fac6ec; 
-    padding: 20px 40px;
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between; /* Space out the nav links */
     align-items: center;
-    border-radius: 0px;
+    border-radius: 20px;
   }
   
   /* Wrapper for the left-aligned links */
@@ -36,7 +36,7 @@ nav .right-links {
 
 .page-content {
   flex-grow: 1;
-  padding: 2rem;
+  padding: 0 1rem;
 }
 
   /* Style for the navigation links */

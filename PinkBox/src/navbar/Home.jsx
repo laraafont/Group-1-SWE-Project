@@ -4,6 +4,7 @@ import "./home.css";
 const Home = () => {
   const [allMovies, setAllMovies] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:4000/allmovies")
@@ -12,7 +13,7 @@ const Home = () => {
         if (data.success) {
           setAllMovies(data.movies);
 
-          // Only filter for 2024 & 2025 releases
+          // Filter for movies that are releasing in 2024 or 2025
           const currentReleases = data.movies.filter(
             (movie) => movie.year === 2025 || movie.year === 2024
           );
@@ -22,7 +23,7 @@ const Home = () => {
       .catch((err) => console.error("Error fetching movies:", err));
   }, []);
 
-  // Filter by platform
+  // Filter movies by streaming platform
   const filterByPlatform = (platform) =>
     allMovies.filter((movie) => movie.streaming_url.includes(platform));
 
@@ -31,17 +32,35 @@ const Home = () => {
   const huluMovies = filterByPlatform("hulu.com");
   const amazonMovies = filterByPlatform("amazon.com");
 
+  // Open modal for movie details on click
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  // Close the modal
+  const closeModal = () => {
+    setSelectedMovie(null);
+  };
+
   // Reusable carousel component
   const renderCarousel = (title, movieList) => (
     <div className="movie-carousel">
       <h2>{title}</h2>
       <div className="movie-images-container">
         {movieList.map((movie) => (
-          <div className="movie-slide" key={movie.id}>
-            <img src={movie.image} alt={movie.title} className="movie-image" />
+          <div
+            key={movie.id}
+            className="movie-slide"
+            onClick={() => handleMovieClick(movie)}
+            style={{ position: "relative", cursor: "pointer" }}
+          >
+            <img
+              src={movie.image}
+              alt={movie.title}
+              className="movie-image"
+            />
             <div className="movie-info">
               <p className="movie-title">{movie.title}</p>
-              <p className="movie-year">{movie.year}</p>
             </div>
           </div>
         ))}
@@ -50,12 +69,32 @@ const Home = () => {
   );
 
   return (
-    <div className="home-container">
-      {renderCarousel("Newest Releases", newReleases)}
-      {renderCarousel("Now Streaming on Netflix", netflixMovies)}
-      {renderCarousel("Watch on Disney+", disneyMovies)}
-      {renderCarousel("Streaming on Hulu", huluMovies)}
-      {renderCarousel("Available on Amazon Prime", amazonMovies)}
+    <div className="home-scrollable">
+      <div className="home-container">
+        {renderCarousel("Newest Releases", newReleases)}
+        {renderCarousel("Now Streaming on Netflix", netflixMovies)}
+        {renderCarousel("Watch on Disney+", disneyMovies)}
+        {renderCarousel("Streaming on Hulu", huluMovies)}
+        {renderCarousel("Available on Amazon Prime", amazonMovies)}
+      </div>
+
+      {selectedMovie && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{selectedMovie.title}</h2>
+            <p>{selectedMovie.description}</p>
+            <p>
+              <strong>Genre:</strong> {selectedMovie.genre}
+            </p>
+            <p>
+              <strong>Cost:</strong> ${selectedMovie.cost}
+            </p>
+            <button className="close-btn" onClick={closeModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
