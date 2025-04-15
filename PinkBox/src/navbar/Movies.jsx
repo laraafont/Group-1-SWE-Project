@@ -7,19 +7,18 @@ const Movies = () => {
   const [generalGenres, setGeneralGenres] = useState([
     'Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Adventure', 'Fantasy', 'Thriller', 'History', 'Animation'
   ]);
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState(''); // single selection
   const [selectedMovie, setSelectedMovie] = useState(null); // To store the movie selected for the modal
   const [isModalOpen, setIsModalOpen] = useState(false); // To track modal visibility
 
   useEffect(() => {
-    // Fetch movies from the backend
     const fetchMovies = async () => {
       try {
         const response = await fetch('http://localhost:4000/allmovies');
         const data = await response.json();
         if (data.success) {
           setMovies(data.movies);
-          setFilteredMovies(data.movies); // Initially, show all movies
+          setFilteredMovies(data.movies); // Show all initially
         } else {
           console.log("No movies found");
         }
@@ -31,26 +30,22 @@ const Movies = () => {
     fetchMovies();
   }, []);
 
-  // Handle genre selection (clickable)
+  // Handle single genre selection
   const handleGenreClick = (genre) => {
-    setSelectedGenres(prevGenres =>
-      prevGenres.includes(genre)
-        ? prevGenres.filter(g => g !== genre) // Deselect
-        : [...prevGenres, genre] // Select
-    );
+    setSelectedGenre(prev => (prev === genre ? '' : genre));
   };
 
-  // Filter movies based on selected genres
+  // Filter movies based on selected genre
   useEffect(() => {
-    if (selectedGenres.length === 0) {
-      setFilteredMovies(movies); // Show all movies if no genre is selected
+    if (!selectedGenre) {
+      setFilteredMovies(movies);
     } else {
       const filtered = movies.filter(movie =>
-        selectedGenres.some(genre => movie.genre.includes(genre))
+        movie.genre.includes(selectedGenre)
       );
       setFilteredMovies(filtered);
     }
-  }, [selectedGenres, movies]);
+  }, [selectedGenre, movies]);
 
   // Open Modal and set selected movie
   const openModal = (movie) => {
@@ -73,7 +68,7 @@ const Movies = () => {
           {generalGenres.map(genre => (
             <button
               key={genre}
-              className={`genre-button ${selectedGenres.includes(genre) ? 'selected' : ''}`}
+              className={`genre-button ${selectedGenre === genre ? 'selected' : ''}`}
               onClick={() => handleGenreClick(genre)}
             >
               {genre}
@@ -100,7 +95,7 @@ const Movies = () => {
             <p>{selectedMovie.description}</p>
             <p><strong>Genre:</strong> {selectedMovie.genre}</p>
             <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
-            <button onClick={closeModal}>Close</button>
+            <button className= "modal-close-button" onClick={closeModal}>Close</button>
           </div>
         </div>
       )}

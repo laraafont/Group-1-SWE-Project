@@ -1,67 +1,121 @@
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .movie-carousel {
-    width: 100%;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    position: relative;
-    padding: 10px 0;
-    scroll-behavior: smooth;
-  }
-  
-  .movie-images-container {
-    display: flex; /* Lay out images horizontally */
-    gap: 10px; /* Space between images */
-  }
-  
-  .movie-slide {
-    flex: 0 0 auto; /* Prevent shrinking or growing */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.home-scrollable {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 90vh; /* or 80vh if your navbar takes space */
+}
+
+.movie-carousel {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  position: relative;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+}
+
+.movie-images-container {
+  display: flex; /* Lay out images horizontally */
+  gap: 10px; /* Space between images */
+}
+
+.movie-slide {
+  flex: 0 0 auto; /* Prevent shrinking or growing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.movie-image {
+  width: 200px; /* Set the size of the images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure images are not distorted */
+  border-radius: 10px;
+}
+
+.movie-info {
+  position: absolute;
+  bottom: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.movie-info h2 {
+  margin: 5px 0;
+}
+
+.movie-info a {
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
   .movie-image {
-    width: 200px; /* Set the size of the images */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure images are not distorted */
-    border-radius: 10px;
+    width: 150px;
   }
-  
-  .movie-info {
-    position: absolute;
-    bottom: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
+}
+
+@media (max-width: 480px) {
+  .movie-image {
+    width: 120px;
   }
-  
-  .movie-info h2 {
-    margin: 5px 0;
-  }
-  
-  .movie-info a {
-    color: #ffcc00;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  @media (max-width: 768px) {
-    .movie-image {
-      width: 150px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .movie-image {
-      width: 120px;
-    }
-  }
-  
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 1000px;
+  height: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgb(255, 255, 240);
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin: 10px 0;
+}
+
+.modal-content button.close-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.close-btn:hover {
+  background-color: #0056b3;
+}

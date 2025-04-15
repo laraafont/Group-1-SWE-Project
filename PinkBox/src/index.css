@@ -28,6 +28,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-y: auto; /* Allow vertical scroll */
+  display: block;   /* This is the default – ensures normal vertical flow */
 }
 
 h1 {

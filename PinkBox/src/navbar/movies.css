@@ -1,31 +1,12 @@
 .movie-page {
   font-family: 'Bebas Neue', sans-serif;
   padding: 20px;
-  background-color: #f8f8f8;
+  margin-top: 30px;
+  background-color: #ebf4df;
   display: flex;
-  justify-content: space-between;
-}
-
-/* Genre Filter Sidebar */
-.genre-filter {
-  width: 250px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.genre-filter h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);
+  overflow-y: auto;
 }
 
 .genre-button {
@@ -36,9 +17,50 @@
   border-radius: 5px;
   margin: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-align: left;
+  transition: background-color 0.1s ease;
+  text-align: center;
   max-width: 100%;
+}
+
+.modal-close-button {
+  background-color: #f0f0f0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+.modal-close-button:hover {
+  background-color: rgb(30, 39, 130);
+  color: white;
+}
+
+/* Genre Filter Sidebar */
+.genre-filter {
+  width: 200px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.genre-filter h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left;
+  white-space: nowrap;
+  
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
 }
 
 .genre-button.selected {
@@ -123,15 +145,16 @@
 
 /* Modal Content */
 .modal-content {
-  position: relative; /* Add this to make the button position relative to the modal */
+  position: relative;
   background: white;
   padding: 20px;
   border-radius: 8px;
   width: 1000px;
-  height: 500px;
   max-width: 90%;
+  max-height: 90vh;  /* adjust height relative to viewport */
+  overflow-y: auto;  /* allow internal scrolling if content exceeds available space */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-color: rgb(255, 255, 240); /* Add a temporary color */
+  background-color: rgb(255, 255, 240);
 }
 
 .modal-content h2 {

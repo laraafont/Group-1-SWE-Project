@@ -4,36 +4,35 @@ import Movies from './Movies';
 import Login from './Login';
 import Cart from './Cart';
 import Wishlist from './Wishlist';
-
 import './navbar.css';
 
 export default function NavBar() {
   return (
-    <div>
+    <div className="navbar-layout">
       {/* Navigation Bar */}
       <nav>
-        {/* Left-aligned links */}
         <div className="left-links">
-          <NavLink to="/" exact activeClassName="active">Home</NavLink>
-          <NavLink to="/movies" activeClassName="active">Movies</NavLink>
-          <NavLink to="/wishlist" activeClassName="active">Wishlist</NavLink>
+          <NavLink to="/" exact="true" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
+          <NavLink to="/movies" className={({ isActive }) => isActive ? 'active' : ''}>Movies</NavLink>
+          <NavLink to="/wishlist" className={({ isActive }) => isActive ? 'active' : ''}>Wishlist</NavLink>
         </div>
 
-        {/* Right-aligned links */}
         <div className="right-links">
-          <NavLink to="/cart" activeClassName="active">Cart</NavLink>
-          <NavLink to="/login" activeClassName="active">Login</NavLink>
+          <NavLink to="/cart" className={({ isActive }) => isActive ? 'active' : ''}>Cart</NavLink>
+          <NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''}>Login</NavLink>
         </div>
       </nav>
 
-      {/* Route Definitions */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
+      {/* Routed Pages */}
+      <div className="page-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </div>
     </div>
   );
 }
