@@ -13,6 +13,8 @@
     justify-content: space-between; /* Space out the nav links */
     align-items: center;
     border-radius: 20px;
+    margin-top: 10px;
+
   }
   
   /* Wrapper for the left-aligned links */
