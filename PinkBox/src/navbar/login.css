@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* Reset margins and padding for the entire page */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* If you want scrollbars when content overflows, consider removing this */
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* Login page styling */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/MoviePosterBG2.png');
+  background-size: cover;
+  background-position: center;
+  padding: 20px;  /* Consider reducing this if necessary */
+}
+
+.login-container {
+  max-width: 650px;
+  width: 100%;
+  padding: 50px;
+  background-color: #fff8ee;
+  border-radius: 6px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  margin: auto;
+}
+
+/* Title styling */
+h3 {
+  color: #333;
+  text-align: center;
+  font-size: 2rem;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+  font-weight: normal;
+  font-size: 1.2rem;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+input {
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button styling for the login page */
+.login-container button {
+  padding: 15px 30px;
+  background-color: #306e85;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.login-container button:hover {
+  background-color: #215c72;
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}

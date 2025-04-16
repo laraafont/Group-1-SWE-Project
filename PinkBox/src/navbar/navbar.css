@@ -1,0 +1,65 @@
+/* Basic reset for padding and margins */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Style for the navigation bar */
+  nav {
+    background-color: #fac6ec; 
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between; /* Space out the nav links */
+    align-items: center;
+    border-radius: 20px;
+    margin-top: 10px;
+
+  }
+  
+  /* Wrapper for the left-aligned links */
+nav .left-links {
+  display: flex;
+  gap: 55px;
+}
+
+/* Wrapper for the right-aligned links */
+nav .right-links {
+  display: flex;
+  gap: 55px;
+}
+
+.navbar-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full height of screen */
+  overflow-y: auto; /* allow scroll when needed */
+}
+
+.page-content {
+  flex-grow: 1;
+  padding: 0 1rem;
+  background-color: #FBF8F4;
+}
+
+  /* Style for the navigation links */
+  nav a {
+    color: rgb(30, 39, 130); /* White text color for links */
+    text-decoration: none; /* Remove underline from links */
+    font-size: 1.4rem;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  /* Hover effect for the links */
+  nav a:hover {
+    background-color: #f3b8e4; /* Lighten the background on hover */
+    color: #4a61b3;
+  }
+  
+  /* Active link style */
+  nav a.active {
+    background-color: #fac6ec; /* Highlight the active page with a blue color */
+    color: #7474db;
+  }
