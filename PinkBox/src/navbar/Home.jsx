@@ -26,7 +26,6 @@ const Home = () => {
     fetchMovies();
   }, []);
 
-  // Filter movies by streaming platform
   const filterByPlatform = (platform) =>
     allMovies.filter((movie) => movie.streaming_url.includes(platform));
 
@@ -35,12 +34,9 @@ const Home = () => {
   const huluMovies = filterByPlatform("hulu.com");
   const amazonMovies = filterByPlatform("amazon.com");
 
-  // Open modal for movie details on click
   const handleMovieClick = (movie) => setSelectedMovie(movie);
-  // Close modal
   const closeModal = () => setSelectedMovie(null);
 
-  // Reusable carousel component for movie lists
   const renderCarousel = (title, movieList) => (
     <div className="movie-carousel">
       <h2>{title}</h2>
@@ -83,9 +79,52 @@ const Home = () => {
             <p>
               <strong>Cost:</strong> ${selectedMovie.cost}
             </p>
-            <button className="close-btn" onClick={closeModal}>
-              Close
-            </button>
+
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end", marginTop: "1rem" }}>
+              <button
+                onClick={async () => {
+                  console.log("Clicked Add to Cart"); // debugging 
+                  console.log("Selected Movie ID:", selectedMovie.id); // debugging
+
+                  try {
+                    const res = await fetch("http://localhost:4000/addtocart", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("auth-token"),
+                      },
+                      body: JSON.stringify({ itemId: selectedMovie.id }),
+                    });
+
+                    const data = await res.json();
+                    console.log("Server Response:", data); // debugging
+
+                    if (data.success) {
+                      alert(`${selectedMovie.title} added to cart!`);
+                    } else {
+                      alert("Failed to add to cart.");
+                    }
+                  } catch (err) {
+                    console.error("Fetch error:", err);
+                    alert("Something went wrong.");
+                  }
+                }}
+                style={{
+                  padding: "10px 15px",
+                  backgroundColor: "#a26cd4",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                Add to Cart
+              </button>
+
+              <button className="close-btn" onClick={closeModal}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

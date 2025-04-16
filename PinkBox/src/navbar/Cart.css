@@ -1,0 +1,73 @@
+.cart-container { /* main wrapper for the entire cart page */
+    background-color: #fff7fb;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 900px;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.cart-container h1 { /* title inside the cart */
+    font-size: 2rem;
+    color: #4a3d8e;
+    margin-bottom: 1rem;
+}
+
+.cart-item { /* each movie item */
+    display: flex;
+    background-color: #fbe7f4;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-item img { /* movie poster/image */
+    width: 120px;
+    border-radius: 10px;
+}
+
+.cart-details { /* info section */
+    flex-grow: 1;
+}
+
+.quantity-control { /* quantity of each movie */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0.5rem 0;
+}
+
+.quantity-control button { /* +/- buttons */
+    padding: 5px 10px;
+    border: none;
+    background-color: #d89edb;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.quantity-control button:hover { /* darker pink when hovered */
+    background-color: #c278c2;
+}
+
+.cart-summary { /* total price section */
+    text-align: right;
+    margin-top: 2rem;
+}
+
+.checkout-btn { /* checkout button details */
+    padding: 10px 20px;
+    background-color: #b075d3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.checkout-btn:hover { /* darker on hover */
+    background-color: #8a5aa5;
+}
