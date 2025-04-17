@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './movies.css';
 
 const Movies = () => {
@@ -11,6 +12,8 @@ const Movies = () => {
   const [movieSearch, setMovieSearch] = useState('');
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -35,6 +38,31 @@ const Movies = () => {
     setSelectedGenres(prevGenres =>
       prevGenres.includes(genre) ? [] : [genre]
     );
+  };
+
+  const handleAddToCart = async () => {
+    if (!selectedMovie) return;
+  
+    try {
+      const response = await fetch('http://localhost:4000/addtocart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ movieId: selectedMovie.id })
+      });
+  
+      const data = await response.json();
+      if (data.success) {
+        console.log("Movie added to cart:", selectedMovie.title);
+        closeModal();
+        navigate('/cart');
+      } else {
+        console.error("Failed to add to cart:", data.error);
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
   };
   
 
@@ -127,7 +155,7 @@ const Movies = () => {
                 <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
               </div>
             </div>
-            <button className="add-to-cart-btn" onClick={closeModal}>Add To Cart</button>
+            <button className="add-to-cart-btn" onClick={handleAddToCart}>Add To Cart</button>
             <button className="close-btn" onClick={closeModal}>Close</button>
             <button className="wishlist-btn" onClick={closeModal}>Add To Wishlist</button>
           </div>
