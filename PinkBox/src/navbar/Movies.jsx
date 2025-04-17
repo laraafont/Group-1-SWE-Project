@@ -33,11 +33,10 @@ const Movies = () => {
 
   const handleGenreClick = (genre) => {
     setSelectedGenres(prevGenres =>
-      prevGenres.includes(genre)
-        ? prevGenres.filter(g => g !== genre)
-        : [...prevGenres, genre]
+      prevGenres.includes(genre) ? [] : [genre]
     );
   };
+  
 
   useEffect(() => {
     let filtered = [...movies];
