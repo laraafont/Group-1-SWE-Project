@@ -18,19 +18,18 @@ html, body {
 
 /* Signup page styling */
 .signup {
-   height: 100vh; /* Full height of the viewport */
-   margin: 0;
-   padding: 0;
+   height: 100vh;
    background-image: url('/MoviePosterBG.png');
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
    display: flex;
    flex-direction: column;
-}
+   justify-content: center; /* ✅ Center the container vertically */
+ } 
 
 
-.signup-container {
+ .signup-container {
    max-width: 650px;
    width: 100%;
    padding: 50px;
@@ -39,8 +38,8 @@ html, body {
    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
    text-align: left;
    margin: auto;
-   margin-top: 60px;
-}
+   /* ✅ remove margin-top: 60px */
+ } 
 
 
 /* Title styling */

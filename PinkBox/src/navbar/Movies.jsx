@@ -58,14 +58,13 @@ const Movies = () => {
         closeModal();
         navigate('/cart');
       } else {
-        console.error("Failed to add to cart:", data.error);
+        console.error("Failed to add to cart:", data.error || "Unknown error");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
     }
   };
   
-
   useEffect(() => {
     let filtered = [...movies];
 
