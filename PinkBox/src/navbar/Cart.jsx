@@ -8,35 +8,47 @@ const Cart = () => {
   useEffect(() => {
     const fetchCartAndMovies = async () => {
       try {
+        const token = localStorage.getItem('auth-token');
+        if (!token) {
+          console.warn("No token found. Please log in.");
+          return;
+        }
+  
         const cartRes = await fetch('http://localhost:4000/getcart', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
+          headers: {
+            'Content-Type': 'application/json',
+            'auth-token': token
+          }
         });
+  
         const cartData = await cartRes.json();
-
+  
         const moviesRes = await fetch('http://localhost:4000/allmovies');
         const moviesData = await moviesRes.json();
-
+  
         if (cartData.success && moviesData.success) {
           const cartMap = cartData.cartData;
-
-          // Get full movie details for items in the cart
+  
           const selected = moviesData.movies
             .filter(movie => cartMap[movie.id] > 0 || cartMap[movie._id] > 0)
             .map(movie => ({
               ...movie,
               quantity: cartMap[movie.id] || cartMap[movie._id] || 0
             }));
-
+  
           setCartItems(selected);
+        } else {
+          console.error("Failed to load cart or movies:", cartData, moviesData);
         }
       } catch (error) {
         console.error("Error loading cart:", error);
       }
     };
-
+  
     fetchCartAndMovies();
   }, []);
+  
 
   return (
     <div className="cart-page">

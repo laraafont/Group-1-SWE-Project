@@ -43,14 +43,23 @@ const Movies = () => {
   const handleAddToCart = async () => {
     if (!selectedMovie) return;
   
+    const token = localStorage.getItem("auth-token");
+  
+    if (!token) {
+      console.error("User is not authenticated.");
+      navigate('/login'); // Or show a login prompt
+      return;
+    }
+  
     try {
       const response = await fetch('http://localhost:4000/addtocart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'auth-token': token
         },
         body: JSON.stringify({ movieId: selectedMovie.id })
-      });
+      });      
   
       const data = await response.json();
       if (data.success) {
@@ -64,6 +73,7 @@ const Movies = () => {
       console.error("Error adding to cart:", error);
     }
   };
+  
   
   useEffect(() => {
     let filtered = [...movies];
