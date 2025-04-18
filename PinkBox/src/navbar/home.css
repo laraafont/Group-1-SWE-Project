@@ -135,4 +135,36 @@
  .modal-content button.close-btn:hover {
   background-color: #0056b3;
  }
+
+ .modal-content button.add-to-cart-btn {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #864f6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.add-to-cart-btn:hover {
+  background-color: #5d3047;
+}
+
+.modal-content button.wishlist-btn {
+  position: absolute;
+  bottom: 140px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #457356;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.wishlist-btn:hover {
+  background-color: #285237;
+}
  
