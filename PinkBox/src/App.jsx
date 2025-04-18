@@ -6,6 +6,7 @@ import Login from "./navbar/Login";
 import Signup from "./navbar/Signup";
 import Cart from "./navbar/Cart";
 import Wishlist from "./navbar/Wishlist";
+import Checkout from "./navbar/Checkout"; 
 import { useEffect } from "react";
 
 // Wrapper component to access `useLocation` and conditionally show NavBar
@@ -20,16 +21,10 @@ function AppWrapper() {
     <>
       {!hideNavbar && <NavBar />}
       <Routes>
-        <Route
-          path="/login"
-          element={
-            <div className="login">
-              <Login />
-            </div>
-          }
-        />
+        <Route path="/login" element={<div className="login"><Login /></div>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/Checkout" element={<Checkout />} />
         <Route
           path="/*"
           element={
