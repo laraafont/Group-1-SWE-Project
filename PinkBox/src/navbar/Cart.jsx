@@ -106,6 +106,27 @@ const Cart = () => {
     }
   };
 
+  const removeFromCart = async (movieId) => {
+    try {
+      const token = localStorage.getItem('auth-token');
+      const res = await fetch('http://localhost:4000/removefromcart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,
+        },
+        body: JSON.stringify({ movieId }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setCartItems(prev => prev.filter(item => item.id !== movieId));
+      }
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+    }
+  };
+
   return (
     <div className="cart-page">
       <h1>Your Cart</h1>
@@ -127,6 +148,7 @@ const Cart = () => {
                     </div>
                     <p>Price: ${item.cost.toFixed(2)}</p>
                     <p>Total: ${(item.cost * item.quantity).toFixed(2)}</p>
+                    <button className="remove-button" onClick={() => removeFromCart(item.id)}>Remove</button>
                   </div>
                 </div>
               ))}
