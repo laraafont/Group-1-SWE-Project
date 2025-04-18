@@ -5,6 +5,8 @@ const Home = () => {
   const [allMovies, setAllMovies] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -51,6 +53,10 @@ const Home = () => {
 
       const data = await response.json();
       if (data.success) {
+        setConfirmationMessage(`Added "${movie.title}" to cart!`);
+        setShowConfirmation(true);
+        closeModal();
+        setTimeout(() => setShowConfirmation(false), 3000);
         console.log(`Added "${movie.title}" to cart!`);
       } else {
         console.log('Failed to add to cart.');
@@ -107,39 +113,45 @@ const Home = () => {
   );
 
   return (
-    <div className="home-scrollable">
-      <div className="home-container">
-        {renderCarousel("Newest Releases", newReleases)}
-        {renderCarousel("Now Streaming on Netflix", netflixMovies)}
-        {renderCarousel("Watch on Disney+", disneyMovies)}
-        {renderCarousel("Streaming on Hulu", huluMovies)}
-        {renderCarousel("Available on Amazon Prime", amazonMovies)}
-      </div>
-
-      {selectedMovie && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedMovie.title}</h2>
-            <p>{selectedMovie.description}</p>
-            <p>
-              <strong>Genre:</strong> {selectedMovie.genre}
-            </p>
-            <p>
-              <strong>Cost:</strong> ${selectedMovie.cost}
-            </p>
-            <button className="wishlist-btn" onClick={() => handleAddToWishlist(selectedMovie)}>
-              Add to Wishlist
-            </button>
-            <button className="add-to-cart-btn" onClick={() => handleAddToCart(selectedMovie)}>
-              Add to Cart
-            </button>
-            <button className="close-btn" onClick={closeModal}>
-              Close
-            </button>
-          </div>
+    <>
+      {showConfirmation && (
+        <div className="toast-confirmation">
+          {confirmationMessage}
         </div>
       )}
-    </div>
+  
+      <div className="home-scrollable">
+        <div className="home-container">
+          {renderCarousel("Newest Releases", newReleases)}
+          {renderCarousel("Now Streaming on Netflix", netflixMovies)}
+          {renderCarousel("Watch on Disney+", disneyMovies)}
+          {renderCarousel("Streaming on Hulu", huluMovies)}
+          {renderCarousel("Available on Amazon Prime", amazonMovies)}
+        </div>
+  
+        {selectedMovie && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h2>{selectedMovie.title}</h2>
+              <p>{selectedMovie.description}</p>
+              <p>
+                <strong>Genre:</strong> {selectedMovie.genre}
+              </p>
+              <p>
+                <strong>Cost:</strong> ${selectedMovie.cost}
+              </p>
+              <button className="wishlist-btn" onClick={() => handleAddToWishlist(selectedMovie)}>
+                Add to Wishlist
+              </button>
+              <button className="add-to-cart-btn" onClick={() => handleAddToCart(selectedMovie)}>
+                Add to Cart
+              </button>
+              <button className="close-btn" onClick={closeModal}>Close</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

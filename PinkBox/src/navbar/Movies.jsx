@@ -5,6 +5,7 @@ import './movies.css';
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [generalGenres, setGeneralGenres] = useState([
     'Action', 'Comedy', 'Drama', 'Horror', 'Romance', 'Sci-Fi', 'Adventure', 'Fantasy', 'Thriller', 'History', 'Animation'
   ]);
@@ -12,6 +13,8 @@ const Movies = () => {
   const [movieSearch, setMovieSearch] = useState('');
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
   const navigate = useNavigate();
 
 
@@ -63,7 +66,10 @@ const Movies = () => {
   
       const data = await response.json();
       if (data.success) {
+        setConfirmationMessage(`Added "${selectedMovie.title}" to cart!`)
+        setShowConfirmation(true);
         console.log("Movie added to cart:", selectedMovie.title);
+        setTimeout(() => setShowConfirmation(false), 3000);
         closeModal();
       } else {
         console.error("Failed to add to cart:", data.error || "Unknown error");
@@ -105,6 +111,12 @@ const Movies = () => {
   };
 
   return (
+    <>
+    {showConfirmation && (
+      <div className="toast-confirmation">
+        {confirmationMessage}
+      </div>
+    )}
     <div className="movie-page">
       {/* Top Controls: Search + Genre Filter stacked */}
       <div className="movie-controls">
@@ -163,13 +175,15 @@ const Movies = () => {
                 <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
               </div>
             </div>
-            <button className="add-to-cart-btn" onClick={handleAddToCart}>Add To Cart</button>
+            <button className="add-to-cart-btn" 
+            onClick={() => handleAddToCart(selectedMovie)}>Add To Cart</button>
             <button className="close-btn" onClick={closeModal}>Close</button>
             <button className="wishlist-btn" onClick={closeModal}>Add To Wishlist</button>
           </div>
         </div>
       )}
     </div>
+    </>
   );  
 };
 
