@@ -92,22 +92,19 @@ const Home = () => {
   };
 
   const renderCarousel = (title, movieList) => (
-    <div className="movie-carousel">
-      <h2>{title}</h2>
-      <div className="movie-images-container">
-        {movieList.map((movie) => (
-          <div
-            key={movie.id}
-            className="movie-slide"
-            onClick={() => handleMovieClick(movie)}
-            style={{ position: "relative", cursor: "pointer" }}
-          >
-            <img src={movie.image} alt={movie.title} className="movie-image" />
-            <div className="movie-info">
-              <p className="movie-title">{movie.title}</p>
+    <div className="movie-section">
+      <h2 className="section-header">{title}</h2>
+      <div className="movie-carousel">
+        <div className="movie-images-container">
+          {movieList.map((movie) => (
+            <div key={movie.id} className="movie-slide" onClick={() => handleMovieClick(movie)}>
+              <img src={movie.image} alt={movie.title} className="movie-image" />
+              <div className="movie-info">
+                <p className="movie-title">{movie.title}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -132,21 +129,28 @@ const Home = () => {
         {selectedMovie && (
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h2>{selectedMovie.title}</h2>
-              <p>{selectedMovie.description}</p>
-              <p>
-                <strong>Genre:</strong> {selectedMovie.genre}
-              </p>
-              <p>
-                <strong>Cost:</strong> ${selectedMovie.cost}
-              </p>
+              <div className="modal-body">
+                <img
+                  className="modal-movie-image"
+                  src={selectedMovie.image}
+                  alt={selectedMovie.title}
+                />
+                <div className="modal-movie-info">
+                  <h2>{selectedMovie.title}</h2>
+                  <p>{selectedMovie.description}</p>
+                  <p><strong>Genre:</strong> {selectedMovie.genre}</p>
+                  <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
+                </div>
+              </div>
               <button className="wishlist-btn" onClick={() => handleAddToWishlist(selectedMovie)}>
                 Add to Wishlist
               </button>
               <button className="add-to-cart-btn" onClick={() => handleAddToCart(selectedMovie)}>
                 Add to Cart
               </button>
-              <button className="close-btn" onClick={closeModal}>Close</button>
+              <button className="close-btn" onClick={closeModal}>
+                Close
+              </button>
             </div>
           </div>
         )}
