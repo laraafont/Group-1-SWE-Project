@@ -92,7 +92,7 @@ const Home = () => {
   };
 
   const renderCarousel = (title, movieList) => (
-    <div className="movie-section">
+    <div className="carousel-wrapper">
       <h2 className="section-header">{title}</h2>
       <div className="movie-carousel">
         <div className="movie-images-container">
