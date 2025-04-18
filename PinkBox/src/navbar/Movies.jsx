@@ -65,7 +65,6 @@ const Movies = () => {
       if (data.success) {
         console.log("Movie added to cart:", selectedMovie.title);
         closeModal();
-        navigate('/cart');
       } else {
         console.error("Failed to add to cart:", data.error || "Unknown error");
       }
