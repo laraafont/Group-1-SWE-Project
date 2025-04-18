@@ -6,6 +6,10 @@ const Cart = () => {
   // eslint-disable-next-line no-unused-vars
   const [allMovies, setAllMovies] = useState([]);
 
+  const totalPrice = cartItems.reduce((sum, item) => {
+    return sum + item.cost * item.quantity;
+  }, 0);
+
   useEffect(() => {
     const fetchCartAndMovies = async () => {
       try {
@@ -108,25 +112,33 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <div className="cart-scroll-container">
-          <div className="cart-list">
-            {cartItems.map(item => (
-              <div key={item._id} className="cart-item">
-                <img src={item.image} alt={item.title} className="cart-image" />
-                <div className="cart-details">
-                  <h3>{item.title}</h3>
-                  <div className="cart-quantity-controls">
-                    <button onClick={() => decrementQuantity(item.id, item.quantity)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => incrementQuantity(item.id)}>+</button>
+        <>
+          <div className="cart-scroll-container">
+            <div className="cart-list">
+              {cartItems.map(item => (
+                <div key={item._id} className="cart-item">
+                  <img src={item.image} alt={item.title} className="cart-image" />
+                  <div className="cart-details">
+                    <h3>{item.title}</h3>
+                    <div className="cart-quantity-controls">
+                      <button onClick={() => decrementQuantity(item.id, item.quantity)}>-</button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => incrementQuantity(item.id)}>+</button>
+                    </div>
+                    <p>Price: ${item.cost.toFixed(2)}</p>
+                    <p>Total: ${(item.cost * item.quantity).toFixed(2)}</p>
                   </div>
-                  <p>Price: ${item.cost.toFixed(2)}</p>
-                  <p>Total: ${(item.cost * item.quantity).toFixed(2)}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+              <div style={{ height: '60px' }}></div> {/* Spacer for the sticky footer */}
+            </div>
           </div>
-        </div>
+
+          <div className="cart-summary">
+            <p className="cart-total">Total: ${totalPrice.toFixed(2)}</p>
+            <button className="checkout-button">Checkout</button>
+          </div>
+        </>
       )}
     </div>
   );
