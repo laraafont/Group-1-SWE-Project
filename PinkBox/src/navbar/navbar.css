@@ -40,7 +40,6 @@ overflow-y: auto; /* allow scroll when needed */
 
 .page-content {
 flex-grow: 1;
-padding: 0 1rem;
 background-color: #FBF8F4;
 }
 

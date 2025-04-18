@@ -18,8 +18,9 @@
 .genre-filter h3 {
   font-size: 18px;
   margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
+  color: rgb(30, 39, 130);
 }
 
 .checkbox-group {
@@ -57,18 +58,23 @@
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
   overflow-y: auto;
-  max-height: 80vh;
-  padding-right: 20px;
+  max-height: 88vh;
+  background-color: #edf1db;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  margin-left: 50px;
+  margin-right: 50px;
+
 }
 
 .movie-item {
   position: relative; /* Needed for absolute positioning of the title */
   width: 250px;
   height: 350px;
-  border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
