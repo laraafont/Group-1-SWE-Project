@@ -24,6 +24,7 @@ const Cart = () => {
         });
 
         const cartData = await cartRes.json();
+
         const moviesRes = await fetch('http://localhost:4000/allmovies');
         const moviesData = await moviesRes.json();
 
@@ -49,6 +50,58 @@ const Cart = () => {
     fetchCartAndMovies();
   }, []);
 
+  const incrementQuantity = async (movieId) => {
+    try {
+      const token = localStorage.getItem('auth-token');
+      const res = await fetch('http://localhost:4000/addtocart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,
+        },
+        body: JSON.stringify({ movieId }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setCartItems(prev =>
+          prev.map(item =>
+            item.id === movieId ? { ...item, quantity: item.quantity + 1 } : item
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error incrementing quantity:', error);
+    }
+  };
+
+  const decrementQuantity = async (movieId, currentQty) => {
+    if (currentQty <= 1) return;
+
+    try {
+      const token = localStorage.getItem('auth-token');
+      const res = await fetch('http://localhost:4000/removefromcart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,
+        },
+        body: JSON.stringify({ movieId }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setCartItems(prev =>
+          prev.map(item =>
+            item.id === movieId ? { ...item, quantity: item.quantity - 1 } : item
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error decrementing quantity:', error);
+    }
+  };
+
   return (
     <div className="cart-page">
       <h1>Your Cart</h1>
@@ -62,9 +115,13 @@ const Cart = () => {
                 <img src={item.image} alt={item.title} className="cart-image" />
                 <div className="cart-details">
                   <h3>{item.title}</h3>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>Price: ${item.cost}</p>
-                  <p>Total: ${item.cost * item.quantity}</p>
+                  <div className="cart-quantity-controls">
+                    <button onClick={() => decrementQuantity(item.id, item.quantity)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => incrementQuantity(item.id)}>+</button>
+                  </div>
+                  <p>Price: ${item.cost.toFixed(2)}</p>
+                  <p>Total: ${(item.cost * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             ))}
@@ -76,4 +133,3 @@ const Cart = () => {
 };
 
 export default Cart;
-

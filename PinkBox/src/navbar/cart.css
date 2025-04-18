@@ -10,7 +10,7 @@
 .cart-scroll-container {
   flex-grow: 1;
   overflow-y: auto;
-  padding-right: 10px;
+  padding: 0 10px 30px 0; /* top, right, bottom, left */
   margin-top: 10px;
 }
 
@@ -38,4 +38,31 @@
 
 .cart-details {
   flex: 1;
+}
+
+.cart-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cart-quantity-controls button {
+  padding: 4px 10px;
+  font-size: 16px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cart-quantity-controls button:hover {
+  background-color: #ccc;
+}
+
+.cart-quantity-controls span {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
 }
