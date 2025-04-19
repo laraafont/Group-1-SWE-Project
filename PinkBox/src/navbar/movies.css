@@ -8,15 +8,15 @@
 
 /* Genre Filter Sidebar */
 .genre-filter {
-  width: 180px;
-  padding: 16px;
+  width: 190px;
+  padding: 18px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .genre-filter h3 {
-  font-size: 18px;
+  font-size: 19px;
   margin-bottom: 10px;
   text-align: left;
   white-space: nowrap;

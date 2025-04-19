@@ -48,7 +48,7 @@ background-color: #FBF8F4;
 nav a {
   color: rgb(30, 39, 130); /* White text color for links */
   text-decoration: none; /* Remove underline from links */
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   padding: 8px 15px;
   border-radius: 4px;
   transition: background-color 0.3s ease; /* Smooth transition for hover effect */
