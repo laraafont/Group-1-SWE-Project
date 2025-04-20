@@ -110,7 +110,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate('/Checkout');
+    navigate('/checkout');
   };
   
 

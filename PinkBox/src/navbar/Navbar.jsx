@@ -5,6 +5,7 @@ import Login from './Login';
 import Cart from './Cart';
 import Wishlist from './Wishlist';
 import './navbar.css';
+import Checkout from './Checkout';
 
 
 export default function NavBar() {
@@ -34,6 +35,7 @@ export default function NavBar() {
          <Route path="/wishlist" element={<Wishlist />} />
          <Route path="/login" element={<Login />} />
          <Route path="/cart" element={<Cart />} />
+         <Route path="/checkout" element={<Checkout />} />
        </Routes>
      </div>
    </div>
