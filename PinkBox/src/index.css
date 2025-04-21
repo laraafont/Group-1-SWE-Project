@@ -24,12 +24,11 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: block;    /* New-Isabelle: ensures normal vertical flow */
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  overflow-y: auto; /* Allow vertical scroll */
-  display: block;   /* This is the default – ensures normal vertical flow */
+  overflow-y: auto;  /* New-Isabelle: allow vertical scroll */
 }
 
 h1 {

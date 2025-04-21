@@ -15,7 +15,7 @@ html, body {
 
 /* Login page styling */
 .login-page {
-  height: 100vh; /* Changed from min-height */
+  height: 100vh; /* Full height */
   display: flex;
   justify-content: center;  /* Center horizontally */
   align-items: center;      /* Center vertically */
@@ -34,7 +34,6 @@ html, body {
   border-radius: 6px;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
   text-align: left;
-  /* Removed margin: auto — no longer needed */
 }
 
 /* Title styling */

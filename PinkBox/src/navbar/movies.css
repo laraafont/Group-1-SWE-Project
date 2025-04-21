@@ -26,10 +26,9 @@
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; 
+  justify-content: center;
   gap: 5px;
 }
-
 
 .genre-button {
   font-family: 'Bebas Neue', sans-serif;
@@ -68,11 +67,10 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   margin-left: 50px;
   margin-right: 50px;
-
 }
 
 .movie-item {
-  position: relative; /* Needed for absolute positioning of the title */
+  position: relative;
   width: 250px;
   height: 350px;
   overflow: hidden;
@@ -105,11 +103,10 @@
   padding: 10px;
   font-size: 18px;
   font-weight: bold;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Show Title on Hover */
 .movie-item:hover .movie-title {
   opacity: 1;
 }
@@ -138,7 +135,7 @@
   height: 500px;
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-color: rgb(255, 255, 240); 
+  background-color: rgb(255, 255, 240);
   font-size: 24px;
 }
 
@@ -150,47 +147,36 @@
   margin: 10px 0;
 }
 
-/* Close button (positioned at the bottom right of the modal) */
-.modal-content button.close-btn {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px;
-  position: absolute; 
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-content button.add-to-cart-btn {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px;
-  position: absolute; 
-  bottom: 80px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #864f6b;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
+/* Buttons */
+.modal-content button.close-btn,
+.modal-content button.add-to-cart-btn,
 .modal-content button.wishlist-btn {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 18px;
-  position: absolute; 
-  bottom: 140px;
-  right: 20px;
+  position: absolute;
   padding: 10px 20px;
-  background-color: #457356;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.modal-content button.close-btn {
+  bottom: 20px;
+  right: 20px;
+  background-color: #007BFF;
+}
+
+.modal-content button.add-to-cart-btn {
+  bottom: 80px;
+  right: 20px;
+  background-color: #864f6b;
+}
+
+.modal-content button.wishlist-btn {
+  bottom: 140px;
+  right: 20px;
+  background-color: #457356;
 }
 
 .modal-content button.close-btn:hover {
@@ -220,7 +206,7 @@
 
 .modal-movie-info {
   flex: 1;
-  max-width: 390px; 
+  max-width: 390px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -228,8 +214,7 @@
   word-wrap: break-word;
 }
 
-
-
+/* Controls */
 .movie-controls {
   display: flex;
   flex-direction: column;
@@ -253,6 +238,7 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Toast Notification */
 .toast-confirmation {
   position: fixed;
   top: 20px;

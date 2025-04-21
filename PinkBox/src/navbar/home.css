@@ -4,9 +4,9 @@
   gap: 1rem;
   padding: 10px;
   margin-top: 25px;
- }
- 
- .carousel-wrapper {
+}
+
+.carousel-wrapper {
   background-color: #edf1db; /* light green */
   border-radius: 15px;
   padding: 1rem;
@@ -14,22 +14,21 @@
   box-shadow: 0 1px 3px 4px rgba(0, 0, 0, 0.2);
 }
 
- .home-scrollable {
+.home-scrollable {
   flex-grow: 1;
   overflow-y: auto;
-  max-height: 90vh; /* or 80vh if your navbar takes space */
+  max-height: 90vh;
 }
- 
- 
- .movie-carousel {
+
+.movie-carousel {
   width: 100%;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto;
   position: relative;
   padding: 10px 0;
   scroll-behavior: smooth;
- }
+}
 
- .movie-carousel h2 {
+.movie-carousel h2 {
   position: sticky;
   top: 0;
   background-color: #f9f9f9;
@@ -40,28 +39,25 @@
   margin: 0;
   text-align: left;
 }
- 
- 
- .movie-images-container {
-  display: flex; /* Lay out images horizontally */
-  gap: 10px; /* Space between images */
-  padding-top: 20px; /* So it doesnt cut off the movies */
+
+.movie-images-container {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
   padding-left: 20px;
 }
- 
- 
- .movie-slide {
-  flex: 0 0 auto; /* Prevent shrinking or growing */
+
+.movie-slide {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
- }
- 
- 
- .movie-image {
-  width: 140px;  
+}
+
+.movie-image {
+  width: 140px;
   height: 210px;
   object-fit: cover;
   border-radius: 10px;
@@ -71,44 +67,39 @@
 .movie-image:hover {
   transform: scale(1.05);
 }
- 
- .movie-info {
+
+.movie-info {
   position: absolute;
   bottom: 10px;
   color: white;
   padding: 10px;
   border-radius: 5px;
- }
- 
- 
- .movie-info h2 {
+}
+
+.movie-info h2 {
   margin: 5px 0;
- }
- 
- 
- .movie-info a {
+}
+
+.movie-info a {
   color: #ffcc00;
   text-decoration: none;
   font-weight: bold;
- }
- 
- 
- @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
   .movie-image {
     width: 150px;
   }
- }
- 
- 
- @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
   .movie-image {
     width: 120px;
   }
- }
- 
- 
- /* Modal Styles */
- .modal-overlay {
+}
+
+/* Modal Styles */
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -119,10 +110,9 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
- }
- 
- 
- .modal-content {
+}
+
+.modal-content {
   position: relative;
   background: white;
   padding: 20px;
@@ -132,20 +122,17 @@
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   background-color: rgb(255, 255, 240);
- }
- 
- 
- .modal-content h2 {
+}
+
+.modal-content h2 {
   margin-bottom: 10px;
- }
- 
- 
- .modal-content p {
+}
+
+.modal-content p {
   margin: 10px 0;
- }
- 
- 
- .modal-content button.close-btn {
+}
+
+.modal-content button.close-btn {
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -155,14 +142,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
- }
- 
- 
- .modal-content button.close-btn:hover {
-  background-color: #0056b3;
- }
+}
 
- .modal-content button.add-to-cart-btn {
+.modal-content button.close-btn:hover {
+  background-color: #0056b3;
+}
+
+.modal-content button.add-to-cart-btn {
   position: absolute;
   bottom: 80px;
   right: 20px;
@@ -193,7 +179,7 @@
 .modal-content button.wishlist-btn:hover {
   background-color: #285237;
 }
- 
+
 .toast-confirmation {
   position: fixed;
   top: 20px;
@@ -234,20 +220,6 @@
   margin-bottom: 40px;
 }
 
-.movie-carousel {
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 0;
-}
-
-.movie-images-container {
-  display: flex;
-  gap: 10px;
-  padding-top: 10px;
-}
-
-/* adding posters to movie tiles */
-
 .modal-body {
   display: flex;
   gap: 20px;
@@ -263,7 +235,7 @@
 
 .modal-movie-info {
   flex: 1;
-  max-width: 390px; 
+  max-width: 390px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
