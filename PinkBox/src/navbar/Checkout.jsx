@@ -15,35 +15,36 @@ const Checkout = () => {
     // Fetch user data from backend to get cart info
     const fetchUserData = async () => {
       const token = getToken();
-
+  
       if (!token) {
         console.error("No token found. Please log in.");
         return;
       }
-
+  
       try {
-        const response = await fetch('http://localhost:4000/getUser', {
+        const response = await fetch('http://localhost:4000/getcart', {  // Change URL to /getcart
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'auth-token': token, // Send the token in the headers
           },
         });
-
+  
         if (response.ok) {
           const userData = await response.json();
-          setCartData(userData.cartData); // Assume the cart data is within `userData.cartData`
+          setCartData(userData); // Now userData will be the cartData object itself
           setIsLoading(false); // Stop loading once data is fetched
         } else {
-          console.error('Failed to fetch user data');
+          console.error('Failed to fetch cart data');
         }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching cart data:', error);
       }
     };
-
+  
     fetchUserData();
   }, []);
+  
 
   const handleSendEmail = async () => {
     const token = getToken();
