@@ -22,6 +22,7 @@ mongoose.connect("mongodb+srv://pinkbox:pinkbox@cluster0.jf5f4.mongodb.net/pinkb
 
 const fetchuser = async (req, res, next) => {
   const token = req.header("auth-token");
+  console.log("Token received:", token);  // Log token to inspect it
   if (!token) {
     return res.status(401).send({ errors: "Please authenticate using a valid token" });
   }
@@ -33,6 +34,7 @@ const fetchuser = async (req, res, next) => {
     res.status(401).send({ errors: "Please authenticate using a valid token" });
   }
 };
+
 
 const Users = mongoose.model("Users", {
   name: { type: String },

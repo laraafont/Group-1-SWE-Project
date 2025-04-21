@@ -11,46 +11,50 @@ const Checkout = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getUser', {
-          method: 'GET',
+        const authToken = localStorage.getItem("auth-token");
+        console.log("auth-token value:", authToken); // Log the auth-token
+        const response = await fetch("http://localhost:4000/getUser", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            // Add any necessary authorization headers, such as a token
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("auth-token"),
           },
         });
-        
-        const data = await response.json();
-        if (data && data.email) {
-          setEmail(data.email);  // Automatically set the email from the backend
-        } else {
-          alert('No user found. Please log in.');
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
         }
+    
+        const data = await response.json();
+        console.log("User data:", data);
+        return data;
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        alert('An error occurred while fetching user data.');
+        console.error("Error fetching user data:", error);
       }
-    };
-
+    };    
+  
     fetchUser();
   }, []);
+  
+  
 
   const handleCheckout = async () => {
     setIsLoading(true); // Set loading to true when checkout starts
     try {
-      const response = await fetch('http://localhost:4000/sendemail', {
+      const response = await fetch('http://localhost:4000/sendEmail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('auth-token'),
         },
         body: JSON.stringify({
-          toEmail: email,
-          subject: subject,
-          textContent: textContent,
+          to: email, // ⚠️ make sure the keys match what your backend expects
+          body: cartDetails, // ⚠️ this should be an array of items
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (data.success) {
         alert('Email sent successfully!');
       } else {
@@ -63,6 +67,7 @@ const Checkout = () => {
       setIsLoading(false); // Set loading to false when the request finishes
     }
   };
+  
 
   return (
     <div className="checkout-container">
