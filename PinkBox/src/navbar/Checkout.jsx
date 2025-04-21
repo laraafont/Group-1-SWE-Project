@@ -6,45 +6,42 @@ const Checkout = () => {
   const [cartData, setCartData] = useState(null);
   const [isEmailSent, setIsEmailSent] = useState(false);
 
-  // Function to get the JWT token from localStorage (or any other storage)
   const getToken = () => {
-    return localStorage.getItem('auth-token'); // Assuming the token is saved in localStorage
+    return localStorage.getItem('auth-token');
   };
 
   useEffect(() => {
-    // Fetch user data from backend to get cart info
     const fetchUserData = async () => {
       const token = getToken();
-  
+
       if (!token) {
         console.error("No token found. Please log in.");
         return;
       }
-  
+
       try {
-        const response = await fetch('http://localhost:4000/getcart', {  // Change URL to /getcart
+        const response = await fetch('http://localhost:4000/getUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'auth-token': token, // Send the token in the headers
+            'auth-token': token,
           },
         });
-  
+
         if (response.ok) {
           const userData = await response.json();
-          setCartData(userData); // Now userData will be the cartData object itself
-          setIsLoading(false); // Stop loading once data is fetched
+          setCartData(userData.cartData); // Extract just the cartData from the user object
+          setIsLoading(false);
         } else {
-          console.error('Failed to fetch cart data');
+          console.error('Failed to fetch user data');
         }
       } catch (error) {
-        console.error('Error fetching cart data:', error);
+        console.error('Error fetching user data:', error);
       }
     };
-  
+
     fetchUserData();
   }, []);
-  
 
   const handleSendEmail = async () => {
     const token = getToken();
@@ -59,7 +56,7 @@ const Checkout = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'auth-token': token, // Include the token in the request headers
+            'auth-token': token,
           },
           body: JSON.stringify({
             to: 'customer@example.com', // Replace with actual user email
@@ -79,7 +76,6 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    // Trigger email sending after cart data is loaded
     if (cartData && !isEmailSent) {
       handleSendEmail();
     }
