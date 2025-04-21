@@ -1,67 +1,244 @@
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .movie-carousel {
-    width: 100%;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    position: relative;
-    padding: 10px 0;
-    scroll-behavior: smooth;
-  }
-  
-  .movie-images-container {
-    display: flex; /* Lay out images horizontally */
-    gap: 10px; /* Space between images */
-  }
-  
-  .movie-slide {
-    flex: 0 0 auto; /* Prevent shrinking or growing */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 10px;
+  margin-top: 25px;
+}
+
+.carousel-wrapper {
+  background-color: #edf1db; /* light green */
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.home-scrollable {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.movie-carousel {
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+}
+
+.movie-carousel h2 {
+  position: sticky;
+  top: 0;
+  background-color: #f9f9f9;
+  padding: 10px 0;
+  font-size: 32px;
+  font-weight: bold;
+  z-index: 10;
+  margin: 0;
+  text-align: left;
+}
+
+.movie-images-container {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.movie-slide {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.movie-image {
+  width: 140px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.movie-image:hover {
+  transform: scale(1.05);
+}
+
+.movie-info {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.movie-info h2 {
+  margin: 5px 0;
+}
+
+.movie-info a {
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
   .movie-image {
-    width: 200px; /* Set the size of the images */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure images are not distorted */
-    border-radius: 10px;
+    width: 150px;
   }
-  
-  .movie-info {
-    position: absolute;
-    bottom: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
+}
+
+@media (max-width: 480px) {
+  .movie-image {
+    width: 120px;
   }
-  
-  .movie-info h2 {
-    margin: 5px 0;
-  }
-  
-  .movie-info a {
-    color: #ffcc00;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  @media (max-width: 768px) {
-    .movie-image {
-      width: 150px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .movie-image {
-      width: 120px;
-    }
-  }
-  
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 1000px;
+  height: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgb(255, 255, 240);
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin: 10px 0;
+}
+
+.modal-content button.close-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.close-btn:hover {
+  background-color: #0056b3;
+}
+
+.modal-content button.add-to-cart-btn {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #864f6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.add-to-cart-btn:hover {
+  background-color: #5d3047;
+}
+
+.modal-content button.wishlist-btn {
+  position: absolute;
+  bottom: 140px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #457356;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button.wishlist-btn:hover {
+  background-color: #285237;
+}
+
+.toast-confirmation {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+  animation: fadein 0.3s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.section-header {
+  position: sticky;
+  top: 0;
+  background-color: #edf1db;
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(30, 39, 130);
+  z-index: 10;
+  margin: 0;
+  text-align: left;
+}
+
+.movie-section {
+  margin-bottom: 40px;
+}
+
+.modal-body {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+.modal-movie-image {
+  width: 300px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.modal-movie-info {
+  flex: 1;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  word-wrap: break-word;
+}

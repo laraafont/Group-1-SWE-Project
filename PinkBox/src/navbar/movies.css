@@ -8,27 +8,27 @@
 
 /* Genre Filter Sidebar */
 .genre-filter {
-  width: 180px;
-  padding: 16px;
+  width: 190px;
+  padding: 18px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .genre-filter h3 {
-  font-size: 18px;
+  font-size: 19px;
   margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
+  color: rgb(30, 39, 130);
 }
 
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; 
+  justify-content: center;
   gap: 5px;
 }
-
 
 .genre-button {
   font-family: 'Bebas Neue', sans-serif;
@@ -57,18 +57,22 @@
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
   overflow-y: auto;
-  max-height: 80vh;
-  padding-right: 20px;
+  max-height: 88vh;
+  background-color: #edf1db;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .movie-item {
-  position: relative; /* Needed for absolute positioning of the title */
+  position: relative;
   width: 250px;
   height: 350px;
-  border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -99,11 +103,10 @@
   padding: 10px;
   font-size: 18px;
   font-weight: bold;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Show Title on Hover */
 .movie-item:hover .movie-title {
   opacity: 1;
 }
@@ -132,7 +135,7 @@
   height: 500px;
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-color: rgb(255, 255, 240); 
+  background-color: rgb(255, 255, 240);
   font-size: 24px;
 }
 
@@ -144,47 +147,36 @@
   margin: 10px 0;
 }
 
-/* Close button (positioned at the bottom right of the modal) */
-.modal-content button.close-btn {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px;
-  position: absolute; 
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-content button.add-to-cart-btn {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px;
-  position: absolute; 
-  bottom: 80px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #864f6b;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
+/* Buttons */
+.modal-content button.close-btn,
+.modal-content button.add-to-cart-btn,
 .modal-content button.wishlist-btn {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 18px;
-  position: absolute; 
-  bottom: 140px;
-  right: 20px;
+  position: absolute;
   padding: 10px 20px;
-  background-color: #457356;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.modal-content button.close-btn {
+  bottom: 20px;
+  right: 20px;
+  background-color: #007BFF;
+}
+
+.modal-content button.add-to-cart-btn {
+  bottom: 80px;
+  right: 20px;
+  background-color: #864f6b;
+}
+
+.modal-content button.wishlist-btn {
+  bottom: 140px;
+  right: 20px;
+  background-color: #457356;
 }
 
 .modal-content button.close-btn:hover {
@@ -214,7 +206,7 @@
 
 .modal-movie-info {
   flex: 1;
-  max-width: 390px; 
+  max-width: 390px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -222,8 +214,7 @@
   word-wrap: break-word;
 }
 
-
-
+/* Controls */
 .movie-controls {
   display: flex;
   flex-direction: column;
@@ -247,3 +238,27 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Toast Notification */
+.toast-confirmation {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+  animation: fadein 0.3s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}

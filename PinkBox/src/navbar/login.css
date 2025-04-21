@@ -4,26 +4,26 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Ensures padding doesn't affect the element's width */
+  box-sizing: border-box;
 }
 
 html, body {
   height: 100%;
-  overflow: hidden; /* Prevents scrollbars if not needed */
-  font-family: 'Bebas Neue', sans-serif; /* Apply Bebas Neue */
+  overflow: hidden; /* Keeps the page from scrolling */
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 /* Login page styling */
-.login {
-  height: 100vh; /* Full height of the viewport */
-  margin: 0;
-  padding: 0;
+.login-page {
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  background-repeat: no-repeat;
   background-image: url('/MoviePosterBG2.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
 }
 
 .login-container {
@@ -34,8 +34,6 @@ html, body {
   border-radius: 6px;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
   text-align: left;
-  margin: auto;
-  margin-top: 120px;
 }
 
 /* Title styling */
@@ -68,7 +66,7 @@ input {
   box-sizing: border-box;
 }
 
-/* Updated: Target only login page button */
+/* Button styling for the login page */
 .login-container button {
   padding: 15px 30px;
   background-color: #306e85;

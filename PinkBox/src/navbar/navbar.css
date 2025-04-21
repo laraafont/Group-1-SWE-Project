@@ -1,21 +1,22 @@
 /* Basic reset for padding and margins */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Style for the navigation bar */
-  nav {
-    background-color: #fac6ec; 
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between; /* Space out the nav links */
-    align-items: center;
-    border-radius: 0px;
-  }
-  
-  /* Wrapper for the left-aligned links */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style for the navigation bar */
+nav {
+  background-color: #fac6ec;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between; /* Space out the nav links */
+  align-items: center;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+/* Wrapper for the left-aligned links */
 nav .left-links {
   display: flex;
   gap: 55px;
@@ -27,24 +28,38 @@ nav .right-links {
   gap: 55px;
 }
 
-  /* Style for the navigation links */
-  nav a {
-    color: rgb(30, 39, 130); /* White text color for links */
-    text-decoration: none; /* Remove underline from links */
-    font-size: 1.4rem;
-    padding: 8px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-  }
-  
-  /* Hover effect for the links */
-  nav a:hover {
-    background-color: #f3b8e4; /* Lighten the background on hover */
-    color: #4a61b3;
-  }
-  
-  /* Active link style */
-  nav a.active {
-    background-color: #fac6ec; /* Highlight the active page with a blue color */
-    color: #7474db;
-  }
+/* Outer layout wrapper */
+.navbar-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full height of screen */
+  overflow-y: auto; /* Allow scroll when needed */
+}
+
+/* Page content under navbar */
+.page-content {
+  flex-grow: 1;
+  background-color: #FBF8F4;
+}
+
+/* Style for the navigation links */
+nav a {
+  color: rgb(30, 39, 130);
+  text-decoration: none;
+  font-size: 1.8rem;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the links */
+nav a:hover {
+  background-color: #f3b8e4;
+  color: #4a61b3;
+}
+
+/* Active link style */
+nav a.active {
+  background-color: #fac6ec;
+  color: #7474db;
+}
