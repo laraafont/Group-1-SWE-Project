@@ -19,7 +19,7 @@ const Cart = () => {
           console.warn("No token found. Please log in.");
           return;
         }
-
+  
         const cartRes = await fetch('http://localhost:4000/getcart', {
           method: 'POST',
           headers: {
@@ -27,33 +27,37 @@ const Cart = () => {
             'auth-token': token
           }
         });
-
+  
         const cartData = await cartRes.json();
-
         const moviesRes = await fetch('http://localhost:4000/allmovies');
         const moviesData = await moviesRes.json();
 
-        if (cartData.success && moviesData.success) {
-          const cartMap = cartData.cartData;
-
-          const selected = moviesData.movies
+  
+        // Check if cartData exists
+        if (cartData) {
+          const cartMap = cartData; // Directly use cartData (no .cartData)
+  
+          const selected = moviesData
             .filter(movie => cartMap[movie.id] > 0 || cartMap[movie._id] > 0)
             .map(movie => ({
               ...movie,
               quantity: cartMap[movie.id] || cartMap[movie._id] || 0
             }));
-
+  
           setCartItems(selected);
         } else {
-          console.error("Failed to load cart or movies:", cartData, moviesData);
+          console.error("Cart data does not exist or is in an unexpected format:", cartData);
         }
       } catch (error) {
         console.error("Error loading cart:", error);
       }
     };
-
+  
     fetchCartAndMovies();
   }, []);
+  
+  
+  
 
   const incrementQuantity = async (movieId) => {
     try {

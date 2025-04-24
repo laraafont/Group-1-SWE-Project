@@ -23,11 +23,12 @@ const Movies = () => {
       try {
         const response = await fetch('http://localhost:4000/allmovies');
         const data = await response.json();
-        if (data.success) {
-          setMovies(data.movies);
-          setFilteredMovies(data.movies);
+
+        if (Array.isArray(data)) {
+          setMovies(data);
+          setFilteredMovies(data);
         } else {
-          console.log("No movies found");
+          console.log("Unexpected data format:", data);
         }
       } catch (error) {
         console.error("Error fetching movies:", error);

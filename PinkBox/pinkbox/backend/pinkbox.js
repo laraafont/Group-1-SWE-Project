@@ -429,6 +429,10 @@ app.post('/sendEmail', fetchuser, async (req, res, next) => {
     if (!Array.isArray(cartDetails)) {
       throw new Error('cartDetails must be an array');
     }
+    
+    // Log each item to inspect its structure
+    cartDetails.forEach(item => console.log(item));
+    
 
     // Create a transporter using your email service provider's SMTP settings
     const transporter = nodemailer.createTransport({
@@ -437,7 +441,7 @@ app.post('/sendEmail', fetchuser, async (req, res, next) => {
       secure: false,
       auth: {
         user: 'aarithir@gmail.com',
-        pass: 'njqxrwxzliqcuwde',
+        pass: 'ftyojedvyjgqzyhu',
       },
     });
 
