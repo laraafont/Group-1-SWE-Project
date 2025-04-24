@@ -14,41 +14,41 @@ const Checkout = () => {
 
 
  useEffect(() => {
-   const fetchUserData = async () => {
-     const token = getToken();
+  const fetchUserData = async () => {
+    const token = getToken();
 
+    if (!token) {
+      console.error("No token found. Please log in.");
+      return;
+    }
 
-     if (!token) {
-       console.error("No token found. Please log in.");
-       return;
-     }
+    // Log the token being sent in the request
+    console.log('Sending token in fetch request:', token);
 
+    try {
+      const response = await fetch('http://localhost:4000/getUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,  // The token being passed in headers
+        },
+      });
 
-     try {
-       const response = await fetch('http://localhost:4000/getUser', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json',
-           'auth-token': token,
-         },
-       });
+      if (response.ok) {
+        const userData = await response.json();
+        setCartData(userData.cartData); // Extract just the cartData from the user object
+        setIsLoading(false);
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
+  fetchUserData();
+}, []);
 
-       if (response.ok) {
-         const userData = await response.json();
-         setCartData(userData.cartData); // Extract just the cartData from the user object
-         setIsLoading(false);
-       } else {
-         console.error('Failed to fetch user data');
-       }
-     } catch (error) {
-       console.error('Error fetching user data:', error);
-     }
-   };
-
-
-   fetchUserData();
- }, []);
 
 
  const handleSendEmail = async () => {

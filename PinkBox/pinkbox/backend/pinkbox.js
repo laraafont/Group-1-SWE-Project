@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const nodemailer = require('nodemailer');
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
@@ -52,9 +53,30 @@ const movieSchema = new mongoose.Schema({
   streaming_url: { type: String, required: true },
   new_release: { type: Boolean, required: true, default: false },
   available: { type: Boolean, default: true },
+  year: { type: String, default: false },
 });
 
 const Movie = mongoose.model("Movie", movieSchema);
+
+// ************************************** //
+
+const OMDBmovieSchema = new mongoose.Schema({
+  id: { type: Number, required: true },
+  title: { type: String, required: true, unique: true },  // No duplicate titles allowed
+  description: { type: String, required: true },
+  genre: { type: String, required: true },
+  cost: { type: Number },
+  image: { type: String, required: true },
+  dor: { type: Date, required: true },
+  streaming_url: { type: String, required: true },
+  new_release: { type: Boolean, required: true, default: false },
+  available: { type: Boolean, default: true },
+  year: { type: String, default: false },
+});
+
+const omdbMovie = mongoose.model("OMDBMovie", OMDBmovieSchema);
+
+// ************************************** //
 
 app.get("/", (req, res) => {
   res.send("pinkbox mongodb database is ready to accept requests!!!");
@@ -63,12 +85,18 @@ app.get("/", (req, res) => {
 const storage = multer.diskStorage({
   destination: './upload/images',
   filename: (req, file, cb) => {
+    console.log('req.body 1:', req.body);
+    // Replace spaces with empty string and convert to lowercase
+    //const movieTitle = req.body.title.replace(/\s+/g, '').toLowerCase();
+    //return cb(null, `${movieTitle}${path.extname(file.originalname)}`);
     return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
   }
 })
 
 const upload = multer({ storage: storage })
+
 app.post("/upload", upload.single('movie'), (req, res) => {
+  console.log('req.body 2:', req.body);
   res.json({
     success: 1,
     image_url: `/images/${req.file.filename}`
@@ -98,6 +126,7 @@ app.post("/addmovie", async (req, res, next) => {
       streaming_url: req.body.streaming_url,
       new_release: req.body.new_release,
       available: req.body.available,
+      year: req.body.year,
     });
     await movie.save();
     console.log("Movie Saved");
@@ -111,6 +140,44 @@ app.post("/addmovie", async (req, res, next) => {
     }
   }
 });
+
+// ****************************** //
+app.post("/OMDBaddmovie", async (req, res, next) => {
+  try {
+    let OMDBmovies = await omdbMovie.find({});
+    let id;
+    if (OMDBmovies.length > 0) {
+      let OMDBmovie_array = OMDBmovies.slice(-1);
+      let last_OMDBmovie = OMDBmovie_array[0];
+      id = last_OMDBmovie.id + 1;
+    }
+    else { id = 1; }
+    const OMDBmovie = new omdbMovie({
+      id: id,
+      title: req.body.title,
+      description: req.body.description,
+      genre: req.body.genre,
+      cost: req.body.cost,
+      image: req.body.image,
+      dor: req.body.dor,
+      streaming_url: req.body.streaming_url,
+      new_release: req.body.new_release,
+      available: req.body.available,
+      year: req.body.year,
+    });
+    await OMDBmovie.save();
+    console.log("omdbMovie Saved");
+    res.json({ success: true, title: req.body.title });
+  } catch (error) {
+    if (error.code === 11000) {
+      res.status(400).send({ success: false, error: 'Title must be unique. Duplicate title found.' });
+    } else {
+      res.status(500).json({ success: false, error: error });
+      next(error);
+    }
+  }
+});
+// ****************************** //
 
 app.post("/removemovie", async (req, res, next) => {
   try {
@@ -171,7 +238,7 @@ app.get("/allmovies", async (req, res, next) => {
 
     if (movies.length > 0) {
       console.log("Movies found:", movies);
-      res.send({success: true, movies: movies });
+      res.send(movies);
     } else {
       console.log("No movies found with the specified genre");
       res.send({ success: false, error: "No movies found" });
@@ -222,8 +289,8 @@ app.post('/signup', async (req, res, next) => {
     let success = false;
     let check = await Users.findOne({ email: req.body.email });
     if (check) {
-      console.log("User already exists with this email");
-      return res.status(400).json({ success: false, errors: "User already exists with this email" });
+      console.log("user already exists with this email");
+      return res.status(400).json({ success: false, errors: "user already exists with this email" });
     }
     let cart = {};
     for (let i = 0; i < 100; i++) {
@@ -275,8 +342,8 @@ app.post('/login', async (req, res, next) => {
       }
     }
     else {
-      console.log("Please try with valid email and password")
-      return res.status(400).json({ success: success, errors: "Please try with valid email and password" })
+      console.log("please try with valid email and password")
+      return res.status(400).json({ success: success, errors: "please try with valid email and password" })
     }
   } catch (error) {
     res.status(500).json({ success: false, error: error });
@@ -288,7 +355,7 @@ app.post('/addtocart', fetchuser, async (req, res, next) => {
   try {
     console.log("Add Cart");
     let userData = await Users.findOne({ _id: req.user.id });
-    userData.cartData[req.body.movieId] += 1;
+    userData.cartData[req.body.itemId] += 1;
     await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
     res.send({ success: true, response: "Added"});
   } catch (error) {
@@ -301,7 +368,7 @@ app.post('/addtocartTest', async (req, res, next) => {
   try {
     console.log("Add Cart");
     let userData = await Users.findOne({ _id: "67a1232b04099ced9b79ca68" });
-    userData.cartData[req.body.movieId] += 1;
+    userData.cartData[req.body.itemId] += 1;
     await Users.findOneAndUpdate({ _id: "67a1232b04099ced9b79ca68" }, { cartData: userData.cartData });
     res.send({ success: true, response: "Added"});
   } catch (error) {
@@ -314,8 +381,8 @@ app.post('/removefromcart', fetchuser, async (req, res, next) => {
   try {
     console.log("Remove Cart");
     let userData = await Users.findOne({ _id: req.user.id });
-    if (userData.cartData[req.body.movieId] != 0) {
-      userData.cartData[req.body.movieId] -= 1;
+    if (userData.cartData[req.body.itemId] != 0) {
+      userData.cartData[req.body.itemId] -= 1;
     }
     await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
     res.send({success: true, response: "Removed"});
@@ -329,8 +396,8 @@ app.post('/removefromcartTest', async (req, res, next) => {
   try {
     console.log("Remove Cart");
     let userData = await Users.findOne({ _id: "67a1232b04099ced9b79ca68" });
-    if (userData.cartData[req.body.movieId] != 0) {
-      userData.cartData[req.body.movieId] -= 1;
+    if (userData.cartData[req.body.itemId] != 0) {
+      userData.cartData[req.body.itemId] -= 1;
     }
     await Users.findOneAndUpdate({ _id: "67a1232b04099ced9b79ca68" }, { cartData: userData.cartData });
     res.send({success: true, response: "Removed"});
@@ -340,11 +407,103 @@ app.post('/removefromcartTest', async (req, res, next) => {
   }
 })
 
+app.post('/getUser', fetchuser, async (req, res, next) => {
+  try {
+    console.log("Get User");
+    let userData = await Users.findOne({ _id: req.user.id });
+    console.log(userData);
+    //res.json({success: true, cartData: userData.cartData});
+    res.json(userData);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+    next(error);
+  }
+});
+
+app.post('/sendEmail', fetchuser, async (req, res, next) => {
+  try {
+    console.log("Send Email");
+    const { to: email, body: cartDetails } = req.body;
+
+    // Check if cartDetails is an array
+    if (!Array.isArray(cartDetails)) {
+      throw new Error('cartDetails must be an array');
+    }
+
+    // Create a transporter using your email service provider's SMTP settings
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'aarithir@gmail.com',
+        pass: 'njqxrwxzliqcuwde',
+      },
+    });
+
+    // Function to fetch the streaming URL from the database
+    const getStreamingUrl = async (title) => {
+      const movie = await Movie.findOne({ title });
+      return movie ? movie.streaming_url : 'N/A';
+    };
+
+    // Create HTML content for the email
+    const htmlContent = `
+      <h2>Thank you for your purchase!</h2>
+      <p>Here are your order details:</p>
+      <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Streaming URL</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${await Promise.all(cartDetails.map(async (item) => {
+            const streamingUrl = await getStreamingUrl(item.title);
+            return `
+              <tr>
+                <td>${item.title}</td>
+                <td><a href="${streamingUrl}" target="_blank">${streamingUrl}</a></td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>$${item.total.toFixed(2)}</td>
+              </tr>
+            `;
+          })).then(rows => rows.join(''))}
+        </tbody>
+      </table>
+      <p><strong>Total Amount: $${cartDetails.reduce((acc, item) => acc + item.total, 0).toFixed(2)}</strong></p>
+    `;
+
+    // Define the email options
+    const mailOptions = {
+      from: 'pinkbox@gmail.com',
+      to: email,
+      subject: 'Order Confirmation',
+      html: htmlContent // Send HTML email
+    };
+
+    // Send the email
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+
+    res.status(200).json({ success: true, message: 'Email sent!' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+    next(error);
+  }
+});
+
 app.post('/getcart', fetchuser, async (req, res, next) => {
   try {
     console.log("Get Cart");
     let userData = await Users.findOne({ _id: req.user.id });
-    res.json({success: true, cartData: userData.cartData});
+    //res.json({success: true, cartData: userData.cartData});
+    res.json(userData.cartData);
   } catch (error) {
     res.status(500).json({ success: false, error: error });
     next(error);
