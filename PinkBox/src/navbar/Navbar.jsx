@@ -5,7 +5,6 @@ import Movies from './Movies';
 import Login from './Login';
 import Cart from './Cart';
 import AboutUs from './AboutUs';
-import Wishlist from './Wishlist';
 import Checkout from './Checkout';
 import './navbar.css';
 
@@ -52,7 +51,6 @@ export default function NavBar() {
         <div className="left-links">
           <NavLink to="/" exact="true" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
           <NavLink to="/movies" className={({ isActive }) => isActive ? 'active' : ''}>Movies</NavLink>
-          <NavLink to="/wishlist" className={({ isActive }) => isActive ? 'active' : ''}>Wishlist</NavLink>
           <NavLink to="/aboutus" className={({ isActive }) => isActive ? 'active' : ''}>About Us</NavLink>      
         </div>
 
@@ -72,7 +70,6 @@ export default function NavBar() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
-          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
