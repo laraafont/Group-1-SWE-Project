@@ -6,6 +6,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [logoutMessage, setLogoutMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -44,11 +45,18 @@ export default function Login() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("auth-token");
+    setLogoutMessage("You have been logged out");
+    setTimeout(() => setLogoutMessage(''), 3000); // Clears the message after 3 seconds
+  };
+
   return (
     <div className="login-page">
       <div className="login-container">
         <h3>Login</h3>
         {error && <p className="error">{error}</p>}
+        {logoutMessage && <p className="logout-message">{logoutMessage}</p>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email:</label>
           <input
@@ -83,6 +91,10 @@ export default function Login() {
             Don't have an account? <a href="/signup">Sign Up</a>
           </p>
         </div>
+
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </div>
   );
