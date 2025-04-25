@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./navbar/Navbar";
 import Home from "./navbar/Home";

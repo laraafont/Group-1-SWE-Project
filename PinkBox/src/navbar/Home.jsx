@@ -13,20 +13,24 @@ const Home = () => {
       try {
         const response = await fetch("http://localhost:4000/allmovies");
         const data = await response.json();
-        if (data.success) {
-          setAllMovies(data.movies);
-          const currentReleases = data.movies.filter(
+        
+        if (Array.isArray(data)) {
+          setAllMovies(data);
+          const currentReleases = data.filter(
             (movie) => movie.year === 2025 || movie.year === 2024
           );
           setNewReleases(currentReleases);
+        } else {
+          console.error("Unexpected data format:", data);
         }
       } catch (err) {
         console.error("Error fetching movies:", err);
       }
     };
-
+  
     fetchMovies();
   }, []);
+  
 
   const filterByPlatform = (platform) =>
     allMovies.filter((movie) => movie.streaming_url.includes(platform));
@@ -96,18 +100,21 @@ const Home = () => {
       <h2 className="section-header">{title}</h2>
       <div className="movie-carousel">
         <div className="movie-images-container">
-          {movieList.map((movie) => (
-            <div key={movie.id} className="movie-slide" onClick={() => handleMovieClick(movie)}>
-              <img src={movie.image} alt={movie.title} className="movie-image" />
-              <div className="movie-info">
-                <p className="movie-title">{movie.title}</p>
+          {movieList.map((movie) => {
+            return (
+              <div key={movie.id} className="movie-slide" onClick={() => handleMovieClick(movie)}>
+                <img src={movie.image} alt={movie.title} className="movie-image" />
+                <div className="movie-info">
+                  <p className="movie-title">{movie.title}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
   );
+  
 
   return (
     <>
