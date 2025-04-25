@@ -32,10 +32,11 @@ const Checkout = () => {
         if (response.ok) {
           const userData = await response.json();
           setCartData(userData.cartData); // Extract just the cartData from the user object
+          console.log("cartData value:", userData.cartData);
           setUserEmail(userData.email);  // Store the user's email
-          console.log("Set user email to:", userData.email);
           setIsLoading(false);
-        } else {
+        }
+         else {
           console.error('Failed to fetch user data');
         }
       } catch (error) {
@@ -54,7 +55,6 @@ const Checkout = () => {
     }
 
     if (cartData && userEmail) {
-      console.log(userEmail);
       try {
         const response = await fetch('http://localhost:4000/sendEmail', {
           method: 'POST',
@@ -64,7 +64,7 @@ const Checkout = () => {
           },
           body: JSON.stringify({
             to: userEmail,
-            body: cartData,
+            body: Array.isArray(cartData) ? cartData : [], // ✅ makes sure it's an array
           }),
         });
         const result = await response.json();

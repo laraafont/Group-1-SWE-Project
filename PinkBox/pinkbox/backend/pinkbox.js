@@ -440,8 +440,7 @@ app.post('/sendEmail', fetchuser, async (req, res, next) => {
       port: 587,
       secure: false,
       auth: {
-        user: 'aarithir@gmail.com',
-        pass: 'ftyojedvyjgqzyhu',
+        user: 'aarithti',
       },
     });
 
