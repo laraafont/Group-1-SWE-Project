@@ -10,13 +10,17 @@ export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // Check if the user is logged in when the component mounts
-  useEffect(() => {
+  const checkToken = () => {
     const token = localStorage.getItem("auth-token");
-    if (token) {
-      setIsLoggedIn(true); // If token exists, mark as logged in
-    }
+    console.log("Token found in Login.jsx:", token);
+    setIsLoggedIn(token && token.length > 10);
+  };
+  
+  // Check once on mount
+  useEffect(() => {
+    checkToken();
   }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,8 +51,10 @@ export default function Login() {
 
       console.log("Login successful:", data);
       localStorage.setItem("auth-token", data.token);
+      checkToken();
       setError("");
       setIsLoggedIn(true); // Update login status
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -57,9 +63,13 @@ export default function Login() {
   const handleLogout = () => {
     localStorage.removeItem("auth-token");
     setLogoutMessage("You have been logged out");
-    setIsLoggedIn(false); // Update login status
-    setTimeout(() => setLogoutMessage(''), 3000); // Clears the message after 3 seconds
+    setEmail('');
+    setPassword('');
+    checkToken();
+    setTimeout(() => setLogoutMessage(''), 3000);
   };
+  
+  
 
   return (
     <div className="login-page">
