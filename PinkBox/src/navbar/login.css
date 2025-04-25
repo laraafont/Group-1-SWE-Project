@@ -91,3 +91,30 @@ input {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
+
+/* Add to login.css */
+
+.logout-message {
+  color: green;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.logout-btn {
+  padding: 15px 30px;
+  background-color: #ff6347; /* A red color for logout */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: 'Bebas Neue', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.logout-btn:hover {
+  background-color: #e04e3e;
+}
