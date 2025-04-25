@@ -362,6 +362,8 @@ app.post('/getcartTest', async (req, res, next) => {
   }
 });
 
+
+
 // Global error-handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
