@@ -11,6 +11,12 @@ const Checkout = () => {
     return localStorage.getItem('auth-token');
   };
 
+  // Function to clear the cart
+  const clearCart = () => {
+    setCartData({}); // Set cartData to an empty object
+    localStorage.setItem('cartData', JSON.stringify({})); // Clear cart from localStorage if needed
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = getToken();
@@ -36,7 +42,7 @@ const Checkout = () => {
           setUserEmail(userData.email);  // Store the user's email
           setIsLoading(false);
         }
-         else {
+        else {
           console.error('Failed to fetch user data');
         }
       } catch (error) {
@@ -90,6 +96,7 @@ const Checkout = () => {
         if (response.ok) {
           setIsEmailSent(true);
           console.log("Email successfully sent to:", userEmail);
+          clearCart(); // Clear the cart after email is sent
         } else {
           console.error("Failed to send email");
         }
@@ -99,8 +106,6 @@ const Checkout = () => {
     }
   };
   
-  
-
   useEffect(() => {
     if (cartData && !isEmailSent && userEmail) {
       handleSendEmail();

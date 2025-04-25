@@ -132,6 +132,8 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
+    // Clear the cart items on the frontend once checkout is initiated
+    setCartItems([]);
     navigate('/checkout');
   };
 
