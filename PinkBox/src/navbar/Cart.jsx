@@ -131,11 +131,29 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  const handleCheckout = () => {
-    // Clear the cart items on the frontend once checkout is initiated
-    setCartItems([]);
-    navigate('/checkout');
-  };
+  const handleCheckout = async () => {
+    const token = localStorage.getItem('auth-token');
+  
+    try {
+      // Remove each item from cart
+      for (const item of cartItems) {
+        await fetch('http://localhost:4000/removefromcart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'auth-token': token,
+          },
+          body: JSON.stringify({ movieId: item.id }),
+        });
+      }
+  
+      // Clear frontend cart and navigate
+      setCartItems([]);
+      navigate('/checkout');
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };  
 
   return (
     <div className="cart-page">
@@ -177,3 +195,4 @@ const Cart = () => {
 };
 
 export default Cart;
+ 

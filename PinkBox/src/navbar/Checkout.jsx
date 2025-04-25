@@ -19,55 +19,41 @@ const Checkout = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = getToken();
-
-      if (!token) {
-        console.error("No token found. Please log in.");
-        return;
-      }
-
+      const token = localStorage.getItem('auth-token');
+      if (!token) return;
+  
       try {
         const response = await fetch('http://localhost:4000/getUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'auth-token': token,  // The token being passed in headers
+            'auth-token': token,
           },
         });
-
+  
         if (response.ok) {
           const userData = await response.json();
-          setCartData(userData.cartData); // Extract just the cartData from the user object
-          console.log("cartData value:", userData.cartData);
-          setUserEmail(userData.email);  // Store the user's email
+          setCartData(userData.cartData);
+          setUserEmail(userData.email);
           setIsLoading(false);
         }
-        else {
-          console.error('Failed to fetch user data');
-        }
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
-
+  
     fetchUserData();
   }, []);
-
-  const handleSendEmail = async () => {
-    const token = getToken();
-    if (!token) {
-      console.error("No token found. Please log in.");
-      return;
-    }
   
-    if (cartData && userEmail) {
+  useEffect(() => {
+    const handleSendEmail = async () => {
+      const token = localStorage.getItem('auth-token');
+      if (!cartData || !userEmail || isEmailSent) return;
+  
       try {
-        const moviesResponse = await fetch("http://localhost:4000/allmovies");
-        const rawData = await moviesResponse.json();
-        console.log("Raw movies response:", rawData);
-  
-        // Access movies directly from rawData.movies
-        const movies = rawData.movies;
+        const moviesRes = await fetch("http://localhost:4000/allmovies");
+        const moviesData = await moviesRes.json();
+        const movies = moviesData.movies;
   
         const cartItemsArray = movies
           .filter((movie) => cartData[movie.id] > 0)
@@ -78,11 +64,11 @@ const Checkout = () => {
             total: movie.cost * cartData[movie.id],
           }));
   
-        const response = await fetch("http://localhost:4000/sendEmail", {
-          method: "POST",
+        const emailRes = await fetch("http://localhost:4000/sendEmail", {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            "auth-token": token,
+            'Content-Type': 'application/json',
+            'auth-token': token,
           },
           body: JSON.stringify({
             to: userEmail,
@@ -90,27 +76,20 @@ const Checkout = () => {
           }),
         });
   
-        const result = await response.json();
-        console.log("SendEmail result:", result);
-  
-        if (response.ok) {
+        if (emailRes.ok) {
           setIsEmailSent(true);
-          console.log("Email successfully sent to:", userEmail);
-          clearCart(); // Clear the cart after email is sent
+          console.log("Confirmation email sent to", userEmail);
         } else {
-          console.error("Failed to send email");
+          console.error("Failed to send confirmation email");
         }
-      } catch (error) {
-        console.error("Error sending email:", error);
+      } catch (err) {
+        console.error("Error sending email:", err);
       }
-    }
-  };
+    };
   
-  useEffect(() => {
-    if (cartData && !isEmailSent && userEmail) {
-      handleSendEmail();
-    }
-  }, [cartData, isEmailSent, userEmail]);  // Include userEmail in the dependencies
+    handleSendEmail();
+  }, [cartData, userEmail, isEmailSent]);
+  
 
   return (
     <div className="checkout-container">
