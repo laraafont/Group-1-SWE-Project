@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const nodemailer = require('nodemailer');
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
@@ -339,6 +340,97 @@ app.post('/removefromcartTest', async (req, res, next) => {
     next(error);
   }
 })
+
+app.post('/getUser', fetchuser, async (req, res, next) => {
+  try {
+    console.log("Get User");
+    let userData = await Users.findOne({ _id: req.user.id });
+    console.log(userData);
+    //res.json({success: true, cartData: userData.cartData});
+    res.json(userData);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error });
+    next(error);
+  }
+});
+
+app.post('/sendEmail', fetchuser, async (req, res, next) => {
+  try {
+    console.log("Send Email");
+    const { to: email, body: cartDetails } = req.body;
+
+    // Check if cartDetails is an array
+    if (!Array.isArray(cartDetails)) {
+      throw new Error('cartDetails must be an array');
+    }
+
+    // Create a transporter using your email service provider's SMTP settings
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'aarithir@gmail.com',
+        pass: 'njqxrwxzliqcuwde',
+      },
+    });
+
+    // Function to fetch the streaming URL from the database
+    const getStreamingUrl = async (title) => {
+      const movie = await Movie.findOne({ title });
+      return movie ? movie.streaming_url : 'N/A';
+    };
+
+    // Create HTML content for the email
+    const htmlContent = `
+      <h2>Thank you for your purchase!</h2>
+      <p>Here are your order details:</p>
+      <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Streaming URL</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${await Promise.all(cartDetails.map(async (item) => {
+            const streamingUrl = await getStreamingUrl(item.title);
+            return `
+              <tr>
+                <td>${item.title}</td>
+                <td><a href="${streamingUrl}" target="_blank">${streamingUrl}</a></td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>$${item.total.toFixed(2)}</td>
+              </tr>
+            `;
+          })).then(rows => rows.join(''))}
+        </tbody>
+      </table>
+      <p><strong>Total Amount: $${cartDetails.reduce((acc, item) => acc + item.total, 0).toFixed(2)}</strong></p>
+    `;
+
+    // Define the email options
+    const mailOptions = {
+      from: 'pinkbox@gmail.com',
+      to: email,
+      subject: 'Order Confirmation',
+      html: htmlContent // Send HTML email
+    };
+
+    // Send the email
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+
+    res.status(200).json({ success: true, message: 'Email sent!' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+    next(error);
+  }
+});
 
 app.post('/getcart', fetchuser, async (req, res, next) => {
   try {

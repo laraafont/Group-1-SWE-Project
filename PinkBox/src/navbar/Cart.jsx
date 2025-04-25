@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './cart.css';
 
 const Cart = () => {
@@ -106,6 +107,13 @@ const Cart = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate('/checkout');
+  };
+  
+
   const removeFromCart = async (movieId) => {
     try {
       const token = localStorage.getItem('auth-token');
@@ -158,7 +166,7 @@ const Cart = () => {
 
           <div className="cart-summary">
             <p className="cart-total">Total: ${totalPrice.toFixed(2)}</p>
-            <button className="checkout-button">Checkout</button>
+            <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
           </div>
         </>
       )}
