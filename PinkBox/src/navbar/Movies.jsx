@@ -167,7 +167,6 @@ const Movies = () => {
               </div>
               <button className="add-to-cart-btn" onClick={handleAddToCart}>Add To Cart</button>
               <button className="close-btn" onClick={closeModal}>Close</button>
-              <button className="wishlist-btn" onClick={closeModal}>Add To Wishlist</button>
             </div>
           </div>
         )}

@@ -67,30 +67,6 @@ const Home = () => {
     }
   };
 
-  const handleAddToWishlist = async (movie) => {
-    try {
-      const token = localStorage.getItem("auth-token");
-      const response = await fetch("http://localhost:4000/addtowishlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": token,
-        },
-        body: JSON.stringify({ movieId: movie.id }),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        alert(`Added "${movie.title}" to wishlist!`);
-      } else {
-        alert("Failed to add to wishlist.");
-      }
-    } catch (error) {
-      console.error("Error adding to wishlist:", error);
-      alert("Something went wrong!");
-    }
-  };
-
   const renderCarousel = (title, movieList) => (
     <div className="carousel-wrapper">
       <h2 className="section-header">{title}</h2>
@@ -142,9 +118,6 @@ const Home = () => {
                   <p><strong>Cost:</strong> ${selectedMovie.cost}</p>
                 </div>
               </div>
-              <button className="wishlist-btn" onClick={() => handleAddToWishlist(selectedMovie)}>
-                Add to Wishlist
-              </button>
               <button className="add-to-cart-btn" onClick={() => handleAddToCart(selectedMovie)}>
                 Add to Cart
               </button>
