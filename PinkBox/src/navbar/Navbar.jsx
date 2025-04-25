@@ -70,7 +70,6 @@ export default function NavBar() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
-          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
