@@ -63,3 +63,21 @@ nav a.active {
   background-color: #fac6ec;
   color: #7474db;
 }
+
+/* Ensure the parent container (NavLink) is positioned relatively */
+.right-links .cart-item-count {
+  position: relative;  /* This makes sure the cart count positions itself relative to the NavLink */
+}
+
+/* Style for the cart item count (red dot) */
+.cart-item-count {
+  position: absolute;  /* Position the red dot absolutely within the NavLink */
+  top: -16px;  /* Adjust position based on your preference */
+  right: 3px;  /* Adjust position based on your preference */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
