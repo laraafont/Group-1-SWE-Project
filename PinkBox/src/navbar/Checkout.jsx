@@ -1,124 +1,104 @@
 import React, { useState, useEffect } from 'react';
 import './checkout.css';
 
+
 const Checkout = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [cartData, setCartData] = useState(null);
-  const [isEmailSent, setIsEmailSent] = useState(false);
-  const [userEmail, setUserEmail] = useState(""); // State to store the user's email
+ const [isLoading, setIsLoading] = useState(true);
+ const [cartData, setCartData] = useState(null);
+ const [isEmailSent, setIsEmailSent] = useState(false);
+ const [userEmail, setUserEmail] = useState(""); // State to store the user's email
 
-  const getToken = () => {
-    return localStorage.getItem('auth-token');
-  };
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const token = getToken();
+ const getToken = () => {
+   return localStorage.getItem('auth-token');
+ };
 
-      if (!token) {
-        console.error("No token found. Please log in.");
-        return;
-      }
 
+ // Function to clear the cart
+ const clearCart = () => {
+   setCartData({}); // Set cartData to an empty object
+   localStorage.setItem('cartData', JSON.stringify({})); // Clear cart from localStorage if needed
+ };
+
+
+ useEffect(() => {
+   const fetchUserData = async () => {
+     const token = localStorage.getItem('auth-token');
+     if (!token) return;
       try {
-        const response = await fetch('http://localhost:4000/getUser', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'auth-token': token,  // The token being passed in headers
-          },
-        });
-
+       const response = await fetch('http://localhost:4000/getUser', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+           'auth-token': token,
+         },
+       });
         if (response.ok) {
-          const userData = await response.json();
-          setCartData(userData.cartData); // Extract just the cartData from the user object
-          console.log("cartData value:", userData.cartData);
-          setUserEmail(userData.email);  // Store the user's email
-          setIsLoading(false);
-        }
-         else {
-          console.error('Failed to fetch user data');
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
+         const userData = await response.json();
+         setCartData(userData.cartData);
+         setUserEmail(userData.email);
+         setIsLoading(false);
+       }
+     } catch (error) {
+       console.error("Error fetching user data:", error);
+     }
+   };
     fetchUserData();
-  }, []);
-
-  const handleSendEmail = async () => {
-    const token = getToken();
-    if (!token) {
-      console.error("No token found. Please log in.");
-      return;
-    }
-  
-    if (cartData && userEmail) {
-      try {
-        const moviesResponse = await fetch("http://localhost:4000/allmovies");
-        const rawData = await moviesResponse.json();
-        console.log("Raw movies response:", rawData);
-  
-        // Access movies directly from rawData.movies
-        const movies = rawData.movies;
-  
-        const cartItemsArray = movies
-          .filter((movie) => cartData[movie.id] > 0)
-          .map((movie) => ({
-            title: movie.title,
-            price: movie.cost,
-            quantity: cartData[movie.id],
-            total: movie.cost * cartData[movie.id],
-          }));
-  
-        const response = await fetch("http://localhost:4000/sendEmail", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": token,
-          },
-          body: JSON.stringify({
-            to: userEmail,
-            body: cartItemsArray,
-          }),
-        });
-  
-        const result = await response.json();
-        console.log("SendEmail result:", result);
-  
-        if (response.ok) {
-          setIsEmailSent(true);
-          console.log("Email successfully sent to:", userEmail);
-        } else {
-          console.error("Failed to send email");
-        }
-      } catch (error) {
-        console.error("Error sending email:", error);
-      }
-    }
-  };
-  
-  
-
+ }, []);
   useEffect(() => {
-    if (cartData && !isEmailSent && userEmail) {
-      handleSendEmail();
-    }
-  }, [cartData, isEmailSent, userEmail]);  // Include userEmail in the dependencies
+   const handleSendEmail = async () => {
+     const token = localStorage.getItem('auth-token');
+     if (!cartData || !userEmail || isEmailSent) return;
+      try {
+       const moviesRes = await fetch("http://localhost:4000/allmovies");
+       const moviesData = await moviesRes.json();
+       const movies = moviesData.movies;
+        const cartItemsArray = movies
+         .filter((movie) => cartData[movie.id] > 0)
+         .map((movie) => ({
+           title: movie.title,
+           price: movie.cost,
+           quantity: cartData[movie.id],
+           total: movie.cost * cartData[movie.id],
+         }));
+        const emailRes = await fetch("http://localhost:4000/sendEmail", {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+           'auth-token': token,
+         },
+         body: JSON.stringify({
+           to: userEmail,
+           body: cartItemsArray,
+         }),
+       });
+        if (emailRes.ok) {
+         setIsEmailSent(true);
+         console.log("Confirmation email sent to", userEmail);
+       } else {
+         console.error("Failed to send confirmation email");
+       }
+     } catch (err) {
+       console.error("Error sending email:", err);
+     }
+   };
+    handleSendEmail();
+ }, [cartData, userEmail, isEmailSent]);
 
-  return (
-    <div className="checkout-container">
-      {isLoading ? (
-        <div className="loading-spinner" />
-      ) : (
-        <div className="checkout-message">
-          <h1>Thank you for shopping with us!</h1>
-          <p>An email has been sent to your inbox for confirmation.</p>
-        </div>
-      )}
-    </div>
-  );
+
+ return (
+   <div className="checkout-container">
+     {isLoading ? (
+       <div className="loading-spinner" />
+     ) : (
+       <div className="checkout-message">
+         <h1>Thank you for shopping with us!</h1>
+         <p>An email has been sent to your inbox for confirmation.</p>
+       </div>
+     )}
+   </div>
+ );
 };
+
 
 export default Checkout;
