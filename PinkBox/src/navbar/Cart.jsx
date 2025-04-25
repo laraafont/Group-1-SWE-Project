@@ -135,16 +135,18 @@ const Cart = () => {
     const token = localStorage.getItem('auth-token');
   
     try {
-      // Remove each item from cart
+      // Remove all quantities of each item from the cart
       for (const item of cartItems) {
-        await fetch('http://localhost:4000/removefromcart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'auth-token': token,
-          },
-          body: JSON.stringify({ movieId: item.id }),
-        });
+        for (let i = 0; i < item.quantity; i++) {
+          await fetch('http://localhost:4000/removefromcart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'auth-token': token,
+            },
+            body: JSON.stringify({ movieId: item.id }),
+          });
+        }
       }
   
       // Clear frontend cart and navigate
@@ -153,7 +155,8 @@ const Cart = () => {
     } catch (error) {
       console.error("Error during checkout:", error);
     }
-  };  
+  };
+  
 
   return (
     <div className="cart-page">
