@@ -1,12 +1,13 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';  // To manage state for the cart
+import { useEffect, useState } from 'react';
 import Home from './Home';
 import Movies from './Movies';
 import Login from './Login';
 import Cart from './Cart';
+import AboutUs from './AboutUs';
 import Wishlist from './Wishlist';
-import './navbar.css';
 import Checkout from './Checkout';
+import './navbar.css';
 
 export default function NavBar() {
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -42,7 +43,7 @@ export default function NavBar() {
     };
 
     fetchCart();
-  }, []);  // The empty array means it will run only once after component mounts
+  }, []);
 
   return (
     <div className="navbar-layout">
@@ -52,13 +53,14 @@ export default function NavBar() {
           <NavLink to="/" exact="true" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
           <NavLink to="/movies" className={({ isActive }) => isActive ? 'active' : ''}>Movies</NavLink>
           <NavLink to="/wishlist" className={({ isActive }) => isActive ? 'active' : ''}>Wishlist</NavLink>
+          <NavLink to="/aboutus" className={({ isActive }) => isActive ? 'active' : ''}>About Us</NavLink>      
         </div>
 
         <div className="right-links">
           <NavLink to="/cart" className={({ isActive }) => isActive ? 'active' : ''}>
             Cart
             {cartItemCount > 0 && (
-              <span className="cart-item-count">{cartItemCount}</span> 
+              <span className="cart-item-count">{cartItemCount}</span>
             )}
           </NavLink>
           <NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''}>User</NavLink>
@@ -71,6 +73,7 @@ export default function NavBar() {
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
