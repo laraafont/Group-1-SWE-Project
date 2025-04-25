@@ -4,12 +4,13 @@ import './cart.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [allMovies, setAllMovies] = useState([]);
 
   const totalPrice = cartItems.reduce((sum, item) => {
     return sum + item.cost * item.quantity;
   }, 0);
+
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0); // Calculate total items in the cart
 
   useEffect(() => {
     const fetchCartAndMovies = async () => {
@@ -107,13 +108,6 @@ const Cart = () => {
     }
   };
 
-  const navigate = useNavigate();
-
-  const handleCheckout = () => {
-    navigate('/checkout');
-  };
-  
-
   const removeFromCart = async (movieId) => {
     try {
       const token = localStorage.getItem('auth-token');
@@ -133,6 +127,12 @@ const Cart = () => {
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
+  };
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate('/checkout');
   };
 
   return (

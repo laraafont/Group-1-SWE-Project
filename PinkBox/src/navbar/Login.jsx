@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 
@@ -7,7 +7,16 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [logoutMessage, setLogoutMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  // Check if the user is logged in when the component mounts
+  useEffect(() => {
+    const token = localStorage.getItem("auth-token");
+    if (token) {
+      setIsLoggedIn(true); // If token exists, mark as logged in
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +48,7 @@ export default function Login() {
       console.log("Login successful:", data);
       localStorage.setItem("auth-token", data.token);
       setError("");
-      navigate("/");
+      setIsLoggedIn(true); // Update login status
     } catch (error) {
       setError(error.message);
     }
@@ -48,6 +57,7 @@ export default function Login() {
   const handleLogout = () => {
     localStorage.removeItem("auth-token");
     setLogoutMessage("You have been logged out");
+    setIsLoggedIn(false); // Update login status
     setTimeout(() => setLogoutMessage(''), 3000); // Clears the message after 3 seconds
   };
 
@@ -57,44 +67,51 @@ export default function Login() {
         <h3>Login</h3>
         {error && <p className="error">{error}</p>}
         {logoutMessage && <p className="logout-message">{logoutMessage}</p>}
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-            autoFocus
-            autoComplete="email"
-          />
+        
+        {/* Show login form or logged-in message based on isLoggedIn */}
+        {!isLoggedIn ? (
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              autoFocus
+              autoComplete="email"
+            />
 
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-            autoComplete="current-password"
-          />
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+              autoComplete="current-password"
+            />
 
-          <button type="submit" disabled={!email || !password}>
-            Login
-          </button>
-        </form>
+            <button type="submit" disabled={!email || !password}>
+              Login
+            </button>
+          </form>
+        ) : (
+          <div>
+            <p>You are already logged in.</p>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        )}
 
         <div className="signup-link">
           <p>
             Don't have an account? <a href="/signup">Sign Up</a>
           </p>
         </div>
-
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
       </div>
     </div>
   );
